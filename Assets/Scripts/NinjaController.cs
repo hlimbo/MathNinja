@@ -23,17 +23,18 @@ public class NinjaController : MonoBehaviour {
     public float minJumpSpeed;
     private Vector2 jumpAccel;
     [SerializeField]
-    private bool beginJump = false;
+    private bool beginJump;
     public float jumpTime;
     [SerializeField]
     private float beginJumpTime;
-    [SerializeField]
-    private float endJumpTime;
     public float beginJumpY;
     public LayerMask floorMask;
 
     [SerializeField]
     private Vector2 rbVelocity;
+
+    [SerializeField]
+    private bool onFloor;
 
     private void Awake()
     {
@@ -45,6 +46,8 @@ public class NinjaController : MonoBehaviour {
     void Start ()
     {
         direction = 0;
+        onFloor = false;
+        beginJump = false;
 	}
 	
 	void Update ()
@@ -74,6 +77,7 @@ public class NinjaController : MonoBehaviour {
                 beginJump = true;
                 beginJumpY = rb.position.y;
                 beginJumpTime = Time.time;
+                animator.SetBool("isJumping", true);
             }
         }
 
@@ -96,18 +100,14 @@ public class NinjaController : MonoBehaviour {
             {
                 //check if on floor
                 Vector2 feetPos = new Vector2(rb.position.x, rb.position.y - sr.bounds.extents.y);
-                bool onFloor = Physics2D.OverlapCircle(feetPos,0.1f, floorMask);
+                onFloor = Physics2D.OverlapCircle(feetPos,0.1f, floorMask);
                 if (onFloor)
                 {
                     beginJump = false;
+                    animator.SetBool("isJumping", false);
                 }
             }
         }
-
-        //set jumping animation
-        Vector2 feetPos2 = new Vector2(rb.position.x, rb.position.y - sr.bounds.extents.y);
-        bool onFloor2 = Physics2D.OverlapCircle(feetPos2,0.1f,floorMask);
-        animator.SetBool("isJumping", !onFloor2);
 
         //debug
         rbVelocity = rb.velocity;
