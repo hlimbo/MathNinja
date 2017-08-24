@@ -7,6 +7,7 @@ public class NumberEventManager : MonoBehaviour {
 
     public static string answer;
     public static string question;
+    public static string attempt_answer = null;
 
     public static int num1;
     public static int num2;
@@ -18,11 +19,8 @@ public class NumberEventManager : MonoBehaviour {
     //how long it takes to display the answer in seconds
     public float displayDelay;
 
-    [SerializeField]
-    private GameObject multiplicationQuestion;
-
-    [SerializeField]
-    private TMP_Text[] gameTexts;
+    private static GameObject multiplicationQuestion;
+    private static TMP_Text[] gameTexts;
 
     private void Start()
     {
@@ -39,22 +37,24 @@ public class NumberEventManager : MonoBehaviour {
     {
         while(true)
         {
-            int[] values = RandomNumbers(1, 12);
+            //int[] values = RandomNumbers(1, 12);
+            int[] values = new int[2];
+            values[0] = 2;
+            values[1] = 2;
             product = Product(values);
             question = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
             answer = "?";
+            gameTexts[1].text = answer;
 
-            //todo: call a function that updates the question text being displayed on screen.
             gameTexts[0].text = question;
             gameTexts[1].text = answer;
-            Debug.Log(question + answer);
+
             yield return new WaitForSeconds(updateDuration);
 
             //reveal answer
 
             //todo: call a function that updates the answer text being displayed on screen
             gameTexts[1].text = product.ToString();
-            Debug.Log("The Answer is: " + product);
 
             yield return new WaitForSeconds(displayDelay);
         }
@@ -75,6 +75,33 @@ public class NumberEventManager : MonoBehaviour {
         for (int i = 0; i < length; ++i)
             product *= values[i];
         return product;
+    }
+
+    public static IEnumerator EvaluateAnswer()
+    {
+        while (true)
+        {
+            //evaluate if attempted answer retrieved is correct
+            if (attempt_answer != null)
+            {
+                int a_answer = int.Parse(attempt_answer);
+
+                //display a_answer;
+                gameTexts[1].text = attempt_answer;
+
+                if (a_answer != product)
+                    Debug.Log("Incorrect answer");
+                else
+                    Debug.Log("Correct!");
+
+                attempt_answer = null;
+                break;
+            }
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        yield return null;
     }
 
 }

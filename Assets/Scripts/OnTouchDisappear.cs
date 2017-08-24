@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class OnTouchDisappear : MonoBehaviour {
 
@@ -10,7 +11,8 @@ public class OnTouchDisappear : MonoBehaviour {
     {
         if (collision.gameObject.name.Equals("Player"))
         {
-            //Destroy(this.gameObject);
+            NumberEventManager.attempt_answer = GetComponent<TMP_Text>().text;
+            StartCoroutine(NumberEventManager.EvaluateAnswer());
         }
     }
 }
