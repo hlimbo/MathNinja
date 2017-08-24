@@ -45,7 +45,7 @@ public class ScrollingBackground : MonoBehaviour
             if (leftCamEdge >= backgrounds[1].transform.position.x + bgSR1.bounds.extents.x)
             {
                 SpriteRenderer bgSR = backgrounds[0].GetComponent<SpriteRenderer>();
-                float tempX = backgrounds[0].transform.position.x + bgSR.bounds.extents.x * 2;
+                float tempX = backgrounds[0].transform.position.x + bgSR.bounds.extents.x * 1.95f;
                 backgrounds[1].transform.position = new Vector3(tempX, backgrounds[1].transform.position.y, backgrounds[1].transform.position.z);
             }
         }
@@ -56,7 +56,7 @@ public class ScrollingBackground : MonoBehaviour
             if (leftCamEdge >= backgrounds[0].transform.position.x + bgSR0.bounds.extents.x)
             {
                 SpriteRenderer bgSR = backgrounds[1].GetComponent<SpriteRenderer>();
-                float tempX = backgrounds[1].transform.position.x + bgSR.bounds.extents.x * 2;
+                float tempX = backgrounds[1].transform.position.x + bgSR.bounds.extents.x * 1.95f;
                 backgrounds[0].transform.position = new Vector3(tempX, backgrounds[0].transform.position.y, backgrounds[0].transform.position.z);
             }
         }
