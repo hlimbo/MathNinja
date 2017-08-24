@@ -40,3 +40,7 @@ sysinfo.txt
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#Text Mesh Pro
+/Assets/TextMesh Pro*
+/Assets/TextMesh Pro/*
