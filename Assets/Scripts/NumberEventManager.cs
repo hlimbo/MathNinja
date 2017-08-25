@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class NumberEventManager : MonoBehaviour {
+public class NumberEventManager : MonoBehaviour
+{
 
     public static string answer;
     public static string question;
@@ -23,6 +24,7 @@ public class NumberEventManager : MonoBehaviour {
     private static TMP_Text[] gameTexts;
 
     private static bool hasCorrectAnswer = false;
+    public static float currentTime;
 
     private void Start()
     {
@@ -39,7 +41,7 @@ public class NumberEventManager : MonoBehaviour {
 
     private IEnumerator GenerateQuestion()
     {
-        while(true)
+        while (true)
         {
             int[] values = RandomNumbers(1, 12);
             product = Product(values);
@@ -54,8 +56,8 @@ public class NumberEventManager : MonoBehaviour {
 
             //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
             //updateDuration's time frame.
-            float currentTime = Time.time;
-            while(Time.time - currentTime < updateDuration)
+            currentTime = Time.time;
+            while (Time.time - currentTime < updateDuration + 1)
             {
                 if (attempt_answer != null)
                 {
@@ -68,12 +70,13 @@ public class NumberEventManager : MonoBehaviour {
                 yield return new WaitForEndOfFrame();
             }
 
+
             if (hasCorrectAnswer)
             {
                 gameTexts[1].text = attempt_answer;
                 gameTexts[1].color = Color.green;
             }
-            else 
+            else
             {
                 gameTexts[1].text = product.ToString();
                 gameTexts[1].color = Color.red;
@@ -84,41 +87,19 @@ public class NumberEventManager : MonoBehaviour {
     }
 
     //generates random numbers from minValue inclusive, to maxValue exclusive
-    private int[] RandomNumbers(int minValue,int maxValue,int length = 2)
+    private int[] RandomNumbers(int minValue, int maxValue, int length = 2)
     {
         int[] numbers = new int[length];
-        for(int i = 0;i < length;++i)
+        for (int i = 0; i < length; ++i)
             numbers[i] = Random.Range(minValue, maxValue);
         return numbers;
     }
 
-    private int Product(int[] values,int length = 2)
+    private int Product(int[] values, int length = 2)
     {
         int product = 1;
         for (int i = 0; i < length; ++i)
             product *= values[i];
         return product;
     }
-
-    //needs to be an event
-    public static IEnumerator EvaluateAnswer()
-    {
-        while (true)
-        {
-            //evaluate if attempted answer retrieved is correct
-            if (attempt_answer != null)
-            {
-                int a_answer = int.Parse(attempt_answer);
-                gameTexts[1].text = attempt_answer;
-                hasCorrectAnswer = (a_answer == product);
-                attempt_answer = null;
-                break;
-            }
-
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        yield break;
-    }
-
 }
