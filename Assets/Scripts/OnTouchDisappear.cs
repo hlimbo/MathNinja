@@ -12,7 +12,7 @@ public class OnTouchDisappear : MonoBehaviour {
         if (collision.gameObject.name.Equals("Player"))
         {
             NumberEventManager.attempt_answer = GetComponent<TMP_Text>().text;
-            StartCoroutine(NumberEventManager.EvaluateAnswer());
+            //StartCoroutine(NumberEventManager.EvaluateAnswer());
         }
     }
 }

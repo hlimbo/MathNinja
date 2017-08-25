@@ -22,6 +22,8 @@ public class NumberEventManager : MonoBehaviour {
     private static GameObject multiplicationQuestion;
     private static TMP_Text[] gameTexts;
 
+    private static bool hasCorrectAnswer = false;
+
     private void Start()
     {
         multiplicationQuestion = GameObject.Find("MultiplicationQuestion");
@@ -30,6 +32,8 @@ public class NumberEventManager : MonoBehaviour {
         gameTexts = multiplicationQuestion.GetComponentsInChildren<TMP_Text>();
         Debug.Assert(gameTexts.Length != 0);
 
+        attempt_answer = null;
+
         StartCoroutine(GenerateQuestion());
     }
 
@@ -37,24 +41,43 @@ public class NumberEventManager : MonoBehaviour {
     {
         while(true)
         {
-            //int[] values = RandomNumbers(1, 12);
-            int[] values = new int[2];
-            values[0] = 2;
-            values[1] = 2;
+            int[] values = RandomNumbers(1, 12);
             product = Product(values);
             question = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
             answer = "?";
-            gameTexts[1].text = answer;
-
+            hasCorrectAnswer = false;
             gameTexts[0].text = question;
             gameTexts[1].text = answer;
+            gameTexts[1].color = Color.white;
+            attempt_answer = null;
 
-            yield return new WaitForSeconds(updateDuration);
 
-            //reveal answer
+            //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
+            //updateDuration's time frame.
+            float currentTime = Time.time;
+            while(Time.time - currentTime < updateDuration)
+            {
+                if (attempt_answer != null)
+                {
+                    int a_answer = int.Parse(attempt_answer);
+                    gameTexts[1].text = attempt_answer;
+                    hasCorrectAnswer = (a_answer == product);
+                    break;
+                }
 
-            //todo: call a function that updates the answer text being displayed on screen
-            gameTexts[1].text = product.ToString();
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (hasCorrectAnswer)
+            {
+                gameTexts[1].text = attempt_answer;
+                gameTexts[1].color = Color.green;
+            }
+            else 
+            {
+                gameTexts[1].text = product.ToString();
+                gameTexts[1].color = Color.red;
+            }
 
             yield return new WaitForSeconds(displayDelay);
         }
@@ -77,6 +100,7 @@ public class NumberEventManager : MonoBehaviour {
         return product;
     }
 
+    //needs to be an event
     public static IEnumerator EvaluateAnswer()
     {
         while (true)
@@ -85,15 +109,8 @@ public class NumberEventManager : MonoBehaviour {
             if (attempt_answer != null)
             {
                 int a_answer = int.Parse(attempt_answer);
-
-                //display a_answer;
                 gameTexts[1].text = attempt_answer;
-
-                if (a_answer != product)
-                    Debug.Log("Incorrect answer");
-                else
-                    Debug.Log("Correct!");
-
+                hasCorrectAnswer = (a_answer == product);
                 attempt_answer = null;
                 break;
             }
@@ -101,7 +118,7 @@ public class NumberEventManager : MonoBehaviour {
             yield return new WaitForSeconds(0.2f);
         }
 
-        yield return null;
+        yield break;
     }
 
 }

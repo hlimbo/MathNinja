@@ -294,9 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateDuration: 10
-  displayDelay: 3
-  multiplicationQuestion: {fileID: 0}
-  gameTexts: []
+  displayDelay: 2
 --- !u!4 &106467241
 Transform:
   m_ObjectHideFlags: 0
@@ -723,7 +721,7 @@ MonoBehaviour:
   - {fileID: 250772079}
   - {fileID: 90343196}
   moveSpeed: 250
-  direction: -1
+  direction: 0
   moveVelocity: {x: 0, y: 0}
 --- !u!4 &782984516
 Transform:
