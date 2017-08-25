@@ -21,6 +21,8 @@ public class CooldownTimer : MonoBehaviour {
 
     [SerializeField]
     private bool canStartTimer = false;
+    [SerializeField]
+    private float elapsedTime = 0.0f;
 
 	void Awake ()
     {
@@ -53,26 +55,37 @@ public class CooldownTimer : MonoBehaviour {
 
     private IEnumerator BeginCooldownTimer()
     {
+
         canStartTimer = true;
         cooldownImage.fillAmount = 1.0f;
+  
         countdownTime = duration;
         cooldownText.text = countdownTime.ToString();
 
-        float elapsedTime = Time.time - startTime;
+        elapsedTime = Time.time - startTime;
         while (elapsedTime < duration + 1)
         {
             cooldownText.text = countdownTime.ToString();
             cooldownImage.fillAmount = 1.0f - (elapsedTime / duration);
             countdownTime -= updateFrequency;
+            if (NumberEventManager.attempt_answer != null)
+            { 
+                break;
+            }
+
             yield return new WaitForSeconds(updateFrequency);
             elapsedTime = Time.time - startTime;
         }
 
-        canStartTimer = false;
-        countdownTime = 0.0f;
-        cooldownImage.fillAmount = 0.0f;
-        cooldownText.text = countdownTime.ToString();
+        //not interrupted
+        if (elapsedTime > duration + 1)
+        {
+            canStartTimer = false;
+            countdownTime = 0.0f;
+            cooldownImage.fillAmount = 0.0f;
+            cooldownText.text = countdownTime.ToString();
+        }
         yield return new WaitForSeconds(eventManager.displayDelay);
- 
+
     }
 }
