@@ -5,7 +5,6 @@ using TMPro;
 
 public class NumberEventManager : MonoBehaviour
 {
-
     public static string answer;
     public static string question;
     public static string attempt_answer = null;
@@ -17,6 +16,9 @@ public class NumberEventManager : MonoBehaviour
     //how long it takes to update using a coroutine
     public float updateDuration;
 
+    //how long each timestep is in the coroutine
+    public float timeStep;
+
     //how long it takes to display the answer in seconds
     public float displayDelay;
 
@@ -24,7 +26,11 @@ public class NumberEventManager : MonoBehaviour
     private static TMP_Text[] gameTexts;
 
     private static bool hasCorrectAnswer = false;
-    public static float currentTime;
+    public static float startTime;
+    public static float elapsedTime = 0.0f;
+
+    [SerializeField]
+    public float displayElapsedTime = 0.0f;
 
     private void Start()
     {
@@ -56,9 +62,16 @@ public class NumberEventManager : MonoBehaviour
 
             //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
             //updateDuration's time frame.
-            currentTime = Time.time;
-            while (Time.time - currentTime < updateDuration + 1)
+            startTime = Time.time;
+            displayElapsedTime = elapsedTime = 0.0f;
+            while (elapsedTime < updateDuration + 1)
             {
+                if(Mathf.Approximately(elapsedTime,0.0f))
+                {
+                    Debug.Log("elapsedTime: " + elapsedTime);
+                    elapsedTime = 0.0f;
+                }
+
                 if (attempt_answer != null)
                 {
                     int a_answer = int.Parse(attempt_answer);
@@ -67,7 +80,8 @@ public class NumberEventManager : MonoBehaviour
                     break;
                 }
 
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(1.0f);
+                displayElapsedTime = elapsedTime = Time.time - startTime;
             }
 
 

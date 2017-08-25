@@ -17,12 +17,14 @@ public class CooldownTimer : MonoBehaviour {
     private TextMeshProUGUI cooldownText;
     private NumberEventManager eventManager;
 
-    public float updateFrequency;
+    [SerializeField]
+    private float updateFrequency;
 
     [SerializeField]
     private bool canStartTimer = false;
+
     [SerializeField]
-    private float elapsedTime = 0.0f;
+    private int corCount;
 
 	void Awake ()
     {
@@ -40,52 +42,62 @@ public class CooldownTimer : MonoBehaviour {
         duration = eventManager.updateDuration;
         countdownTime = duration;
         cooldownText.text = duration.ToString();
+        corCount = 0;
+        updateFrequency = eventManager.timeStep;
     }
 
     // Update is called once per frame
     void Update ()
     {
-		if(!canStartTimer)
+        if (!canStartTimer && corCount == 0)
         {
-            startTime = NumberEventManager.currentTime;
-            Debug.Assert(startTime == NumberEventManager.currentTime);
             StartCoroutine(BeginCooldownTimer());
+        }
+
+        if (corCount > 1)
+        {
+            Debug.Log("corCount: " + corCount);
         }
 	}
 
+    //the problem is that it starts another coroutine
     private IEnumerator BeginCooldownTimer()
     {
-
+        corCount++;
         canStartTimer = true;
-        cooldownImage.fillAmount = 1.0f;
-  
+        cooldownImage.fillAmount = 1.0f; 
         countdownTime = duration;
-        cooldownText.text = countdownTime.ToString();
 
-        elapsedTime = Time.time - startTime;
+        Debug.Assert(cooldownImage.fillAmount == 1.0f);
+
+        int numIterations = 0;
+        float elapsedTime = NumberEventManager.elapsedTime;
         while (elapsedTime < duration + 1)
         {
-            cooldownText.text = countdownTime.ToString();
-            cooldownImage.fillAmount = 1.0f - (elapsedTime / duration);
-            countdownTime -= updateFrequency;
             if (NumberEventManager.attempt_answer != null)
-            { 
-                break;
+            {
+                canStartTimer = false;
+                yield return new WaitForSeconds(eventManager.displayDelay);
+                corCount--;
+                yield break;
             }
 
+            cooldownText.text = countdownTime.ToString();
+            cooldownImage.fillAmount = 1.0f - (elapsedTime/ duration);
+            countdownTime -= updateFrequency;
+
             yield return new WaitForSeconds(updateFrequency);
-            elapsedTime = Time.time - startTime;
+            elapsedTime = NumberEventManager.elapsedTime;
+            numIterations++;
         }
 
-        //not interrupted
-        if (elapsedTime > duration + 1)
-        {
-            canStartTimer = false;
-            countdownTime = 0.0f;
-            cooldownImage.fillAmount = 0.0f;
-            cooldownText.text = countdownTime.ToString();
-        }
+        countdownTime = 0.0f;
+        cooldownImage.fillAmount = 0.0f;
+        cooldownText.text = countdownTime.ToString();
+        canStartTimer = false;
         yield return new WaitForSeconds(eventManager.displayDelay);
+        corCount--;
+        yield return null;
 
     }
 }
