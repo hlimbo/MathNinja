@@ -58,17 +58,21 @@ public class CooldownTimer : MonoBehaviour {
         countdownTime = duration;
         cooldownText.text = countdownTime.ToString();
 
-        while (Time.time - startTime < duration + 1)
+        float elapsedTime = Time.time - startTime;
+        while (elapsedTime < duration + 1)
         {
             cooldownText.text = countdownTime.ToString();
-            cooldownImage.fillAmount = (1.0f - (Time.time - startTime) / duration);
+            cooldownImage.fillAmount = 1.0f - (elapsedTime / duration);
             countdownTime -= updateFrequency;
             yield return new WaitForSeconds(updateFrequency);
+            elapsedTime = Time.time - startTime;
         }
 
         canStartTimer = false;
-        cooldownText.text = "0";
+        countdownTime = 0.0f;
         cooldownImage.fillAmount = 0.0f;
+        cooldownText.text = countdownTime.ToString();
         yield return new WaitForSeconds(eventManager.displayDelay);
+ 
     }
 }
