@@ -28,9 +28,48 @@ public class NumberSpawner : MonoBehaviour {
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+    float disableDuration = 1.0f;
+    float startTime;
+    float elapsedTime = 0.0f;
+    int index = -1;
+
+    // respawn number touched by player
+    //prob will have to write more coroutines for this one as well
+    void Update ()
+    {
+        //for (int i = 0; i < possibleAnswers.Count; ++i)
+        //{
+        //    index = -1;
+        //    if (!possibleAnswers[i].activeInHierarchy)
+        //    {
+        //        index = i;
+        //        startTime = Time.time;
+        //        elapsedTime = Time.time - startTime;
+        //        while (elapsedTime < disableDuration)
+        //        {
+        //            elapsedTime = Time.time - startTime;
+        //        }
+
+        //        possibleAnswers[index].SetActive(true);
+        //        break;
+        //    }
+        //}
+
+        //if (index == -1)
+        //    startTime = Time.time;
+
+        //if (index != -1)
+        //{
+        //    elapsedTime = Time.time - startTime;
+        //    while (elapsedTime < disableDuration)
+        //    {
+        //        elapsedTime = Time.time - startTime;
+        //    }
+
+        //    possibleAnswers[index].SetActive(true);
+        //}
+    }
+   
 }

@@ -7,15 +7,13 @@ using TMPro;
 public class CooldownTimer : MonoBehaviour {
 
     [SerializeField]
-    private float startTime;
-    [SerializeField]
     private float duration;
     [SerializeField]
     private float countdownTime;
 
     private Image cooldownImage;
     private TextMeshProUGUI cooldownText;
-    private NumberEventManager eventManager;
+    //private NumberEventManager eventManager;
 
     [SerializeField]
     private float updateFrequency;
@@ -32,18 +30,15 @@ public class CooldownTimer : MonoBehaviour {
         Debug.Assert(cooldownImage != null);
         cooldownText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         Debug.Assert(cooldownText != null);
-
-        eventManager = FindObjectOfType<NumberEventManager>();
-        Debug.Assert(eventManager != null);
 	}
 
     private void Start()
     {
-        duration = eventManager.updateDuration;
         countdownTime = duration;
         cooldownText.text = duration.ToString();
         corCount = 0;
-        updateFrequency = eventManager.timeStep;
+        updateFrequency = NumberEventManager.TimeStep;
+        duration = NumberEventManager.UpdateDuration;
     }
 
     // Update is called once per frame
@@ -77,7 +72,8 @@ public class CooldownTimer : MonoBehaviour {
             if (NumberEventManager.attempt_answer != null)
             {
                 canStartTimer = false;
-                yield return new WaitForSeconds(eventManager.displayDelay);
+                //yield return new WaitForSeconds(eventManager.displayDelay);
+                yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
                 corCount--;
                 yield break;
             }
@@ -95,7 +91,8 @@ public class CooldownTimer : MonoBehaviour {
         cooldownImage.fillAmount = 0.0f;
         cooldownText.text = countdownTime.ToString();
         canStartTimer = false;
-        yield return new WaitForSeconds(eventManager.displayDelay);
+        //yield return new WaitForSeconds(eventManager.displayDelay);
+        yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
         corCount--;
         yield return null;
 

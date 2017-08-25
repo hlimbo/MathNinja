@@ -26,11 +26,25 @@ public class NumberEventManager : MonoBehaviour
     private static TMP_Text[] gameTexts;
 
     private static bool hasCorrectAnswer = false;
-    public static float startTime;
-    public static float elapsedTime = 0.0f;
+
+    //used for other scripts that require timing
+    public static float startTime { get; private set; }
+    public static float elapsedTime { get; private set; }
+    public static float UpdateDuration { get; private set; }
+    public static float TimeStep { get; private set; }
+    public static float DisplayDelay { get; private set; }
 
     [SerializeField]
     public float displayElapsedTime = 0.0f;
+
+    private void Awake()
+    {
+        attempt_answer = null;
+        UpdateDuration = updateDuration;
+        TimeStep = timeStep;
+        DisplayDelay = displayDelay;
+        elapsedTime = 0.0f;
+    }
 
     private void Start()
     {
@@ -40,8 +54,6 @@ public class NumberEventManager : MonoBehaviour
         gameTexts = multiplicationQuestion.GetComponentsInChildren<TMP_Text>();
         Debug.Assert(gameTexts.Length != 0);
 
-        attempt_answer = null;
-
         StartCoroutine(GenerateQuestion());
     }
 
@@ -49,7 +61,7 @@ public class NumberEventManager : MonoBehaviour
     {
         while (true)
         {
-            int[] values = RandomNumbers(1, 12);
+            int[] values = RandomNumbers(0, 12);
             product = Product(values);
             question = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
             answer = "?";
@@ -66,11 +78,6 @@ public class NumberEventManager : MonoBehaviour
             displayElapsedTime = elapsedTime = 0.0f;
             while (elapsedTime < updateDuration + 1)
             {
-                if(Mathf.Approximately(elapsedTime,0.0f))
-                {
-                    Debug.Log("elapsedTime: " + elapsedTime);
-                    elapsedTime = 0.0f;
-                }
 
                 if (attempt_answer != null)
                 {
