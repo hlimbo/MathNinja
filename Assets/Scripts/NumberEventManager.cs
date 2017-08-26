@@ -5,19 +5,25 @@ using TMPro;
 
 public class NumberEventManager : MonoBehaviour
 {
+    //used as a key to notify other scripts to know if it is not ready to retrieve
+    //the correct answer from the product variable
+    public static int NO_PRODUCT = -1;
+
+    //this string will display the correct answer after time is up
     public static string answer;
     public static string question;
     public static string attempt_answer = null;
 
     public static int num1;
     public static int num2;
+    //correct answer for the question
     public static int product;
 
     //how long it takes to update using a coroutine
     public float updateDuration;
 
-    //how long each timestep is in the coroutine
-    public float timeStep;
+    //how often the interruptable timer updates within its updateDuration
+    public float updateFrequency;
 
     //how long it takes to display the answer in seconds
     public float displayDelay;
@@ -31,7 +37,7 @@ public class NumberEventManager : MonoBehaviour
     public static float startTime { get; private set; }
     public static float elapsedTime { get; private set; }
     public static float UpdateDuration { get; private set; }
-    public static float TimeStep { get; private set; }
+    public static float UpdateFrequency { get; private set; }
     public static float DisplayDelay { get; private set; }
 
     [SerializeField]
@@ -41,7 +47,7 @@ public class NumberEventManager : MonoBehaviour
     {
         attempt_answer = null;
         UpdateDuration = updateDuration;
-        TimeStep = timeStep;
+        UpdateFrequency = updateFrequency;
         DisplayDelay = displayDelay;
         elapsedTime = 0.0f;
     }
@@ -78,7 +84,6 @@ public class NumberEventManager : MonoBehaviour
             displayElapsedTime = elapsedTime = 0.0f;
             while (elapsedTime < updateDuration + 1)
             {
-
                 if (attempt_answer != null)
                 {
                     int a_answer = int.Parse(attempt_answer);
@@ -87,7 +92,7 @@ public class NumberEventManager : MonoBehaviour
                     break;
                 }
 
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(updateFrequency);
                 displayElapsedTime = elapsedTime = Time.time - startTime;
             }
 
@@ -103,6 +108,7 @@ public class NumberEventManager : MonoBehaviour
                 gameTexts[1].color = Color.red;
             }
 
+            product = NO_PRODUCT;
             yield return new WaitForSeconds(displayDelay);
         }
     }

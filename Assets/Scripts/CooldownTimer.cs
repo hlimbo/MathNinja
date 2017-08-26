@@ -37,7 +37,7 @@ public class CooldownTimer : MonoBehaviour {
         countdownTime = duration;
         cooldownText.text = duration.ToString();
         corCount = 0;
-        updateFrequency = NumberEventManager.TimeStep;
+        updateFrequency = NumberEventManager.UpdateFrequency;
         duration = NumberEventManager.UpdateDuration;
     }
 
@@ -72,7 +72,6 @@ public class CooldownTimer : MonoBehaviour {
             if (NumberEventManager.attempt_answer != null)
             {
                 canStartTimer = false;
-                //yield return new WaitForSeconds(eventManager.displayDelay);
                 yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
                 corCount--;
                 yield break;
@@ -91,7 +90,6 @@ public class CooldownTimer : MonoBehaviour {
         cooldownImage.fillAmount = 0.0f;
         cooldownText.text = countdownTime.ToString();
         canStartTimer = false;
-        //yield return new WaitForSeconds(eventManager.displayDelay);
         yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
         corCount--;
         yield return null;

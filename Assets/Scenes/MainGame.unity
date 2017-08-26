@@ -294,8 +294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateDuration: 4
-  timeStep: 1
-  displayDelay: 1
+  updateFrequency: 1
+  displayDelay: 2
   displayElapsedTime: 0
 --- !u!4 &106467241
 Transform:
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0
   countdownTime: 0
-  updateFrequency: 1
+  updateFrequency: 2
   canStartTimer: 0
   corCount: 0
 --- !u!1 &956356304
