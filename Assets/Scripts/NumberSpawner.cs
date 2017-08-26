@@ -31,36 +31,54 @@ public class NumberSpawner : MonoBehaviour {
             possibleAnswers.Add(numberGO);
 
         }
-        //todo: generating possible answers needs to be in sync with NumberEventManager's timing system
-        GeneratePossibleAnswers(0, 144);
 
+        StartCoroutine(GenerateAnswers());
     }
 
     //this timer will be in sync with the NumberEventManager timing system found in GenerateQuestion Coroutine
     private IEnumerator GenerateAnswers()
     {
+        Stack<GameObject> inactiveGOs = new Stack<GameObject>();
+
         while(true)
         {
+            //reactivates any disabled gameobjects
+            while(inactiveGOs.Count != 0)
+            {
+                GameObject reactivatedGO = inactiveGOs.Pop();
+                reactivatedGO.SetActive(true);
+            }
+
+            GeneratePossibleAnswers(min, max);
+
             while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration + 1)
             {
+                //interruptable timer condition setup
                 if(NumberEventManager.attempt_answer != null)
                 {
+                    //find all game objects that become disabled
+                    foreach(GameObject numberGO in possibleAnswers)
+                    {
+                        if(!numberGO.activeInHierarchy)
+                            inactiveGOs.Push(numberGO);
+                    }
+
                     break;
                 }
 
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
             }
+
+            yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
         }
 
-
-        yield return null;
     }
 
     //resizes width and height of text's box collider when given a random number
     private void GeneratePossibleAnswers(int min,int max)
     {
         //temporary hack
-        int correctAnswerIndex = 1;
+        int correctAnswerIndex = Random.Range(0, size);
         int index = 0;
 
         foreach(GameObject numberGO in possibleAnswers)

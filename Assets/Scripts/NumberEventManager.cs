@@ -63,6 +63,16 @@ public class NumberEventManager : MonoBehaviour
         StartCoroutine(GenerateQuestion());
     }
 
+    //used primarily for when a user decides to change timer values while in unity playmode
+    //to reflect the changes that happen for all scripts that require access to the timing variables
+    private void Update()
+    {
+        //temporary ~ can remove after the final build
+        UpdateDuration = updateDuration;
+        UpdateFrequency = updateFrequency;
+        DisplayDelay = displayDelay;
+    }
+
     private IEnumerator GenerateQuestion()
     {
         while (true)
