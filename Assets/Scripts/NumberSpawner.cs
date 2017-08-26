@@ -15,9 +15,12 @@ public class NumberSpawner : MonoBehaviour {
     //for rng
     public int min, max;
 
+    private Stack<GameObject> inactiveGOs;
+
     private void Awake()
     {
         possibleAnswers = new List<GameObject>();
+        inactiveGOs = new Stack<GameObject>();
     }
 
     // Use this for initialization
@@ -38,12 +41,10 @@ public class NumberSpawner : MonoBehaviour {
     //this timer will be in sync with the NumberEventManager timing system found in GenerateQuestion Coroutine
     private IEnumerator GenerateAnswers()
     {
-        Stack<GameObject> inactiveGOs = new Stack<GameObject>();
-
         while(true)
         {
             //reactivates any disabled gameobjects
-            while(inactiveGOs.Count != 0)
+            while (inactiveGOs.Count != 0)
             {
                 GameObject reactivatedGO = inactiveGOs.Pop();
                 reactivatedGO.SetActive(true);
@@ -70,6 +71,7 @@ public class NumberSpawner : MonoBehaviour {
             }
 
             yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
+
         }
 
     }
