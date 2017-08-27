@@ -126,7 +126,9 @@ public class NumberSpawner : MonoBehaviour {
                     string correctAnswer = NumberEventManager.product.ToString();
                     Vector2 boxColliderSize = numberText.GetPreferredValues(correctAnswer);
                     numberBox.size = boxColliderSize;
+                    //SetText does not update the text property!
                     numberText.SetText(correctAnswer);
+                    numberText.text = correctAnswer;
                 }
             }
             else
@@ -134,10 +136,25 @@ public class NumberSpawner : MonoBehaviour {
                 string randomNumber = Random.Range(min, max).ToString();
                 Vector2 boxColliderSize = numberText.GetPreferredValues(randomNumber);
                 numberBox.size = boxColliderSize;
+                //SetText does not update the text property!
                 numberText.SetText(randomNumber);
+                numberText.text = randomNumber;
             }
             
         }
+
+        //logging for development build
+        //DebugPrintNumbers();
     }
+
+    //private void DebugPrintNumbers()
+    //{
+    //    Debug.Log("Numbers set: ");
+    //    foreach(GameObject numberGO in possibleAnswers)
+    //    {
+    //        TextMeshPro numberText = numberGO.GetComponent<TextMeshPro>();
+    //        Debug.Log(numberText.text);
+    //    }
+    //}
  
 }

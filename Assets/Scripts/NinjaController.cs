@@ -66,6 +66,8 @@ public class NinjaController : MonoBehaviour {
     {
         if(isDead)
         {
+            //should player fall through the floor when dead?
+            playerCollider.isTrigger = true;
             animator.SetBool("isDead", isDead);
             return;
         }

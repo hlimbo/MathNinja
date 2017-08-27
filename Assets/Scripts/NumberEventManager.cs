@@ -110,7 +110,6 @@ public class NumberEventManager : MonoBehaviour
                 displayElapsedTime = elapsedTime = Time.time - startTime;
             }
 
-
             if (hasCorrectAnswer)
             {
                 gameTexts[1].text = attempt_answer;
