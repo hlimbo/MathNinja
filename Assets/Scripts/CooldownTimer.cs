@@ -76,7 +76,7 @@ public class CooldownTimer : MonoBehaviour {
 
         int numIterations = 0;
         float elapsedTime = NumberEventManager.elapsedTime;
-        while (elapsedTime < duration + 1)
+        while (elapsedTime < duration)
         {
             if (NumberEventManager.attempt_answer != null)
             {
@@ -99,7 +99,11 @@ public class CooldownTimer : MonoBehaviour {
             numIterations++;
         }
 
-        countdownTime = 0.0f;
+        if(countdownTime < 0.0f)
+        {
+            Debug.Log("Countdown time: " + countdownTime);
+        }
+        //countdownTime = 0.0f;
         cooldownImage.fillAmount = 0.0f;
         cooldownText.text = countdownTime.ToString();
         canStartTimer = false;

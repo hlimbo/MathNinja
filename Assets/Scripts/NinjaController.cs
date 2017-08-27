@@ -138,7 +138,7 @@ public class NinjaController : MonoBehaviour {
     {
         while(!isDead)
         {
-            while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration + 1)
+            while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
                 if(NumberEventManager.attempt_answer != null)
                 {

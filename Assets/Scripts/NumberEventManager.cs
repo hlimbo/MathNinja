@@ -95,7 +95,7 @@ public class NumberEventManager : MonoBehaviour
             //updateDuration's time frame.
             startTime = Time.time;
             displayElapsedTime = elapsedTime = 0.0f;
-            while (elapsedTime < updateDuration + 1)
+            while (elapsedTime < updateDuration)
             {
                 if (attempt_answer != null)
                 {
@@ -117,6 +117,8 @@ public class NumberEventManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("My Answer: " + attempt_answer);
+                Debug.Log("The Answer: " + product.ToString());
                 gameTexts[1].text = product.ToString();
                 gameTexts[1].color = Color.red;
             }

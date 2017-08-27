@@ -74,7 +74,7 @@ public class NumberSpawner : MonoBehaviour {
 
             GeneratePossibleAnswers(min, max);
 
-            while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration + 1)
+            while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
                 //interruptable timer condition setup
                 if(NumberEventManager.attempt_answer != null)
@@ -127,7 +127,7 @@ public class NumberSpawner : MonoBehaviour {
                     Vector2 boxColliderSize = numberText.GetPreferredValues(correctAnswer);
                     numberBox.size = boxColliderSize;
                     //SetText does not update the text property!
-                    numberText.SetText(correctAnswer);
+                   // numberText.SetText(correctAnswer);
                     numberText.text = correctAnswer;
                 }
             }
@@ -137,7 +137,7 @@ public class NumberSpawner : MonoBehaviour {
                 Vector2 boxColliderSize = numberText.GetPreferredValues(randomNumber);
                 numberBox.size = boxColliderSize;
                 //SetText does not update the text property!
-                numberText.SetText(randomNumber);
+                //numberText.SetText(randomNumber);
                 numberText.text = randomNumber;
             }
             
