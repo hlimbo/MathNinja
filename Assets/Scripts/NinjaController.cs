@@ -49,6 +49,7 @@ public class NinjaController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         playerCollider = GetComponent<Collider2D>();
+        IsDead = isDead = false;
     }
 
     void Start ()
@@ -56,7 +57,6 @@ public class NinjaController : MonoBehaviour {
         direction = 0;
         onFloor = false;
         beginJump = false;
-        IsDead = isDead = animator.GetBool("isDead");
         mainCam = Camera.main;
 
         StartCoroutine(CheckIfDead());

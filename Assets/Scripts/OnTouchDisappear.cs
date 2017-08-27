@@ -17,8 +17,11 @@ public class OnTouchDisappear : MonoBehaviour {
     {
         if (collision.gameObject.name.Equals("Player"))
         {
-            NumberEventManager.attempt_answer = tmp_text.text;
-            gameObject.SetActive(false);
+            if (NumberEventManager.attempt_answer == null)
+            {
+                NumberEventManager.attempt_answer = tmp_text.text;
+                gameObject.SetActive(false);
+            }
         }
     }
 
