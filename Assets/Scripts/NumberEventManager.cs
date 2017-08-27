@@ -31,7 +31,7 @@ public class NumberEventManager : MonoBehaviour
     private static GameObject multiplicationQuestion;
     private static TMP_Text[] gameTexts;
 
-    private static bool hasCorrectAnswer = false;
+    private static bool hasCorrectAnswer;
 
     //used for other scripts that require timing
     public static float startTime { get; private set; }
@@ -39,6 +39,7 @@ public class NumberEventManager : MonoBehaviour
     public static float UpdateDuration { get; private set; }
     public static float UpdateFrequency { get; private set; }
     public static float DisplayDelay { get; private set; }
+    public static bool HasCorrectAnswer { get; private set; }
 
     [SerializeField]
     public float displayElapsedTime = 0.0f;
@@ -50,6 +51,7 @@ public class NumberEventManager : MonoBehaviour
         UpdateFrequency = updateFrequency;
         DisplayDelay = displayDelay;
         elapsedTime = 0.0f;
+        HasCorrectAnswer = hasCorrectAnswer = false;
     }
 
     private void Start()
@@ -75,7 +77,8 @@ public class NumberEventManager : MonoBehaviour
 
     private IEnumerator GenerateQuestion()
     {
-        while (true)
+        //stop generating new math questions if player is dead
+        while (!NinjaController.IsDead)
         {
             int[] values = RandomNumbers(0, 12);
             product = Product(values);
@@ -99,6 +102,7 @@ public class NumberEventManager : MonoBehaviour
                     int a_answer = int.Parse(attempt_answer);
                     gameTexts[1].text = attempt_answer;
                     hasCorrectAnswer = (a_answer == product);
+                    HasCorrectAnswer = hasCorrectAnswer;
                     break;
                 }
 
@@ -121,6 +125,8 @@ public class NumberEventManager : MonoBehaviour
             product = NO_PRODUCT;
             yield return new WaitForSeconds(displayDelay);
         }
+
+        yield return null;
     }
 
     //generates random numbers from minValue inclusive, to maxValue exclusive

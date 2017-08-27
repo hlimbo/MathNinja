@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//an event driven approach might have been better here since coroutines require lots of synchronization
 public class NumberSpawner : MonoBehaviour {
 
     [SerializeField]
@@ -38,10 +39,31 @@ public class NumberSpawner : MonoBehaviour {
         StartCoroutine(GenerateAnswers());
     }
 
+    private void Update()
+    {
+        if(NinjaController.IsDead)
+        {
+            //if not all numberGOs became inactive... set them as inactive game objects
+            //put this here so the numberGOs immediately are set inactive
+            if(inactiveGOs.Count != possibleAnswers.Count)
+            {
+                foreach (GameObject numberGO in possibleAnswers)
+                {
+                    if (numberGO.activeInHierarchy)
+                    {
+                        numberGO.SetActive(false);
+                        inactiveGOs.Push(numberGO);
+                    }
+                }
+            }
+        }
+    }
+
     //this timer will be in sync with the NumberEventManager timing system found in GenerateQuestion Coroutine
     private IEnumerator GenerateAnswers()
     {
-        while(true)
+        //stop the coroutine when the player is dead
+        while(!NinjaController.IsDead)
         {
             //reactivates any disabled gameobjects
             while (inactiveGOs.Count != 0)
@@ -74,6 +96,7 @@ public class NumberSpawner : MonoBehaviour {
 
         }
 
+        yield return null;
     }
 
     //resizes width and height of text's box collider when given a random number

@@ -1522,6 +1522,7 @@ MonoBehaviour:
     m_Bits: 256
   rbVelocity: {x: 0, y: 0}
   onFloor: 0
+  isDead: 0
 --- !u!70 &2017326099
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

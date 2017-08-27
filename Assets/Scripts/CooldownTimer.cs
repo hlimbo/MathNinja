@@ -44,11 +44,20 @@ public class CooldownTimer : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (!canStartTimer && corCount == 0)
+        if (NinjaController.IsDead)
+        {
+            if (corCount != 0)
+            {
+                corCount--;
+                StopCoroutine(BeginCooldownTimer());
+            }
+        }
+        else if (!canStartTimer && corCount == 0)
         {
             StartCoroutine(BeginCooldownTimer());
         }
 
+        //debugging
         if (corCount > 1)
         {
             Debug.Log("corCount: " + corCount);
@@ -74,6 +83,10 @@ public class CooldownTimer : MonoBehaviour {
                 canStartTimer = false;
                 yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
                 corCount--;
+                yield break;
+            }
+            else if(NinjaController.IsDead)
+            {
                 yield break;
             }
 
