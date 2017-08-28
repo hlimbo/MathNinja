@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class NumberEventManager : MonoBehaviour
 {
+    public enum Problem_State
+    {
+        NO_ANSWER,
+        ANSWER_PENDING,
+        CORRECT_ANSWER,
+        WRONG_ANSWER
+    };
+
     //used as a key to notify other scripts to know if it is not ready to retrieve
     //the correct answer from the product variable
     public const int NO_PRODUCT = -1;
@@ -32,15 +41,17 @@ public class NumberEventManager : MonoBehaviour
     private static GameObject multiplicationQuestion;
     private static TextMeshProUGUI[] gameTexts;
 
-    private static bool hasCorrectAnswer;
-
     //used for other scripts that require timing
     public static float startTime { get; private set; }
     public static float elapsedTime { get; private set; }
     public static float UpdateDuration { get; private set; }
     public static float UpdateFrequency { get; private set; }
     public static float DisplayDelay { get; private set; }
-    public static bool HasCorrectAnswer { get; private set; }
+
+    //should consider turning into an enum instead
+    //with the following states:
+    // NO_ANSWER,CORRECT_ANSWER,WRONG_ANSWER
+    public static Problem_State ProblemState;
 
     [SerializeField]
     public float displayElapsedTime = 0.0f;
@@ -52,7 +63,7 @@ public class NumberEventManager : MonoBehaviour
         UpdateFrequency = updateFrequency;
         DisplayDelay = displayDelay;
         elapsedTime = 0.0f;
-        HasCorrectAnswer = hasCorrectAnswer = false;
+        ProblemState = Problem_State.NO_ANSWER;
     }
 
     private void Start()
@@ -68,13 +79,13 @@ public class NumberEventManager : MonoBehaviour
 
     //used primarily for when a user decides to change timer values while in unity playmode
     //to reflect the changes that happen for all scripts that require access to the timing variables
-    private void Update()
-    {
-        //temporary ~ can remove after the final build
-        UpdateDuration = updateDuration;
-        UpdateFrequency = updateFrequency;
-        DisplayDelay = displayDelay;
-    }
+    //private void Update()
+    //{
+    //    //temporary ~ can remove after the final build
+    //    UpdateDuration = updateDuration;
+    //    UpdateFrequency = updateFrequency;
+    //    DisplayDelay = displayDelay;
+    //}
 
     private IEnumerator GenerateQuestion()
     {
@@ -85,11 +96,11 @@ public class NumberEventManager : MonoBehaviour
             product = Product(values);
             questionText = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
             answerText = "?";
-            hasCorrectAnswer = false;
             gameTexts[0].text = questionText;
             gameTexts[1].text = answerText;
             gameTexts[1].color = Color.white;
             user_answer = NO_ANSWER;
+            ProblemState = Problem_State.NO_ANSWER;
 
             //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
             //updateDuration's time frame.
@@ -101,11 +112,8 @@ public class NumberEventManager : MonoBehaviour
             while (elapsedTime < updateDuration)
             {
                 //I have to possibly check twice for the correct answer
-                if (user_answer != NO_ANSWER)
+                if (ProblemState == Problem_State.ANSWER_PENDING)
                 {
-                    gameTexts[1].text = user_answer.ToString();
-                    hasCorrectAnswer = (user_answer == product);
-                    HasCorrectAnswer = hasCorrectAnswer;
                     break;
                 }
 
@@ -114,17 +122,19 @@ public class NumberEventManager : MonoBehaviour
             }
 
             //check again after time is up
-            if (user_answer != NO_ANSWER)
+            if (ProblemState == Problem_State.ANSWER_PENDING)
             {
                 gameTexts[1].text = user_answer.ToString();
-                hasCorrectAnswer = (user_answer == product);
-                HasCorrectAnswer = hasCorrectAnswer;
+                //evaluate if answer is right or wrong
+                ProblemState = (user_answer == product) ? Problem_State.CORRECT_ANSWER : Problem_State.WRONG_ANSWER;
             }
 
-            if (hasCorrectAnswer)
+            if (ProblemState == Problem_State.CORRECT_ANSWER)
             {
                 gameTexts[1].text = user_answer.ToString();
                 gameTexts[1].color = Color.green;
+                Debug.Log("My AnswerC: " + user_answer.ToString());
+                Debug.Log("The AnswerC: " + product.ToString());
             }
             else
             {

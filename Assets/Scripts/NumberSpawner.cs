@@ -100,11 +100,11 @@ public class NumberSpawner : MonoBehaviour {
                 yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
             }
 
-            //find all game objects that become disabled
+            //set all numberGOs as disabled
             foreach (GameObject numberGO in possibleAnswers)
             {
-                if (!numberGO.activeInHierarchy)
-                    inactiveGOs.Push(numberGO);
+                numberGO.SetActive(false);
+                inactiveGOs.Push(numberGO);
             }
 
             yield return new WaitForSeconds(NumberEventManager.DisplayDelay);

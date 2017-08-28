@@ -63,7 +63,6 @@ public class CooldownTimer : MonoBehaviour {
         }
 	}
 
-    //the problem is that it starts another coroutine
     private IEnumerator BeginCooldownTimer()
     {
         corCount++;

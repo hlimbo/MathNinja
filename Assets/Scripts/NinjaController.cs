@@ -155,6 +155,9 @@ public class NinjaController : MonoBehaviour {
     {
         while(!isDead)
         {
+            //need to sync all coroutines that rely on NumberEventManager's timing
+            yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
+
             while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
                 if(NumberEventManager.user_answer != NumberEventManager.NO_ANSWER)
@@ -177,10 +180,22 @@ public class NinjaController : MonoBehaviour {
                 yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
             }
 
-            //checks if player dies by grabbing the wrong answer
-            if (NumberEventManager.user_answer != NumberEventManager.NO_ANSWER)
+            //do a busy wait here... since I do not know if NinjaController's coroutine or NumberEventManager's coroutine will be called first.
+            //to ensure that the problem gets evaluated by NumberEventManager's coroutine check
+            while (NumberEventManager.ProblemState == NumberEventManager.Problem_State.ANSWER_PENDING)
             {
-                IsDead = isDead = (NumberEventManager.HasCorrectAnswer) ? false : true;
+                yield return new WaitForEndOfFrame();
+            }
+
+            //check if player lives or dies depending on what answer was picked
+            switch (NumberEventManager.ProblemState)
+            {
+                case NumberEventManager.Problem_State.CORRECT_ANSWER:
+                    IsDead = isDead = false;
+                    break;
+                case NumberEventManager.Problem_State.WRONG_ANSWER:
+                    IsDead = isDead = true;
+                    break;
             }
 
             yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
