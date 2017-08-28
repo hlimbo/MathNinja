@@ -7,17 +7,18 @@ public class NumberEventManager : MonoBehaviour
 {
     //used as a key to notify other scripts to know if it is not ready to retrieve
     //the correct answer from the product variable
-    public static int NO_PRODUCT = -1;
+    public const int NO_PRODUCT = -1;
+    public const int NO_ANSWER = -2;
 
     //this string will display the correct answer after time is up
-    public static string answer;
-    public static string question;
-    public static string attempt_answer = null;
+    public static string answerText;
+    public static string questionText;
+    public static int user_answer;
 
-    public static int num1;
-    public static int num2;
+    public static int num1 { get; private set; }
+    public static int num2 { get; private set; }
     //correct answer for the question
-    public static int product;
+    public static int product { get; private set; }
 
     //how long it takes to update using a coroutine
     public float updateDuration;
@@ -29,7 +30,7 @@ public class NumberEventManager : MonoBehaviour
     public float displayDelay;
 
     private static GameObject multiplicationQuestion;
-    private static TMP_Text[] gameTexts;
+    private static TextMeshProUGUI[] gameTexts;
 
     private static bool hasCorrectAnswer;
 
@@ -46,7 +47,7 @@ public class NumberEventManager : MonoBehaviour
 
     private void Awake()
     {
-        attempt_answer = null;
+        user_answer = NO_ANSWER;
         UpdateDuration = updateDuration;
         UpdateFrequency = updateFrequency;
         DisplayDelay = displayDelay;
@@ -59,7 +60,7 @@ public class NumberEventManager : MonoBehaviour
         multiplicationQuestion = GameObject.Find("MultiplicationQuestion");
         Debug.Assert(multiplicationQuestion != null);
 
-        gameTexts = multiplicationQuestion.GetComponentsInChildren<TMP_Text>();
+        gameTexts = multiplicationQuestion.GetComponentsInChildren<TextMeshProUGUI>();
         Debug.Assert(gameTexts.Length != 0);
 
         StartCoroutine(GenerateQuestion());
@@ -82,13 +83,13 @@ public class NumberEventManager : MonoBehaviour
         {
             int[] values = RandomNumbers(0, 12);
             product = Product(values);
-            question = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
-            answer = "?";
+            questionText = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
+            answerText = "?";
             hasCorrectAnswer = false;
-            gameTexts[0].text = question;
-            gameTexts[1].text = answer;
+            gameTexts[0].text = questionText;
+            gameTexts[1].text = answerText;
             gameTexts[1].color = Color.white;
-            attempt_answer = null;
+            user_answer = NO_ANSWER;
 
 
             //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
@@ -97,11 +98,11 @@ public class NumberEventManager : MonoBehaviour
             displayElapsedTime = elapsedTime = 0.0f;
             while (elapsedTime < updateDuration)
             {
-                if (attempt_answer != null)
+                //I have to possibly check twice for the correct answer
+                if (user_answer != NO_ANSWER)
                 {
-                    int a_answer = int.Parse(attempt_answer);
-                    gameTexts[1].text = attempt_answer;
-                    hasCorrectAnswer = (a_answer == product);
+                    gameTexts[1].text = user_answer.ToString();
+                    hasCorrectAnswer = (user_answer == product);
                     HasCorrectAnswer = hasCorrectAnswer;
                     break;
                 }
@@ -110,14 +111,22 @@ public class NumberEventManager : MonoBehaviour
                 displayElapsedTime = elapsedTime = Time.time - startTime;
             }
 
+            //check again after time is up
+            if (user_answer != NO_ANSWER)
+            {
+                gameTexts[1].text = user_answer.ToString();
+                hasCorrectAnswer = (user_answer == product);
+                HasCorrectAnswer = hasCorrectAnswer;
+            }
+
             if (hasCorrectAnswer)
             {
-                gameTexts[1].text = attempt_answer;
+                gameTexts[1].text = user_answer.ToString();
                 gameTexts[1].color = Color.green;
             }
             else
             {
-                Debug.Log("My Answer: " + attempt_answer);
+                Debug.Log("My Answer: " + user_answer.ToString());
                 Debug.Log("The Answer: " + product.ToString());
                 gameTexts[1].text = product.ToString();
                 gameTexts[1].color = Color.red;

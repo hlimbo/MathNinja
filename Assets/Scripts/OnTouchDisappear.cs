@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(TMP_Text))]
+[RequireComponent(typeof(NumberText))]
 public class OnTouchDisappear : MonoBehaviour {
 
-    private TMP_Text tmp_text;
+    private NumberText numberText;
 
     private void Awake()
     {
-        tmp_text = GetComponent<TMP_Text>();       
+        numberText = GetComponent<NumberText>();       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.Equals("Player"))
         {
-            if (NumberEventManager.attempt_answer == null)
+            if (NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration && NumberEventManager.user_answer == NumberEventManager.NO_ANSWER)
             {
-                NumberEventManager.attempt_answer = tmp_text.text;
+                NumberEventManager.user_answer = numberText.value;
                 gameObject.SetActive(false);
             }
         }

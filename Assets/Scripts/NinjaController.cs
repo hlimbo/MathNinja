@@ -40,6 +40,10 @@ public class NinjaController : MonoBehaviour {
     [SerializeField]
     private bool isDead;
     public static bool IsDead { get; private set; }
+    
+    [Header("Debugging Settings")]
+    [Tooltip("Use this cheat to ignore collisions and fly on the map. Useful for Debugging Timers")]
+    public bool enableFlyMode;
 
     private Camera mainCam;
 
@@ -59,11 +63,24 @@ public class NinjaController : MonoBehaviour {
         beginJump = false;
         mainCam = Camera.main;
 
+        //debugging
+        if (enableFlyMode)
+        {
+            rb.bodyType = RigidbodyType2D.Static;
+            playerCollider.isTrigger = true;
+            transform.position = new Vector2(mainCam.transform.position.x, mainCam.transform.position.y - mainCam.orthographicSize / 2);
+            return;
+        }
+        
         StartCoroutine(CheckIfDead());
 	}
-	
-	void Update ()
+
+    void Update()
     {
+        //debugging
+        if (enableFlyMode)
+            return;
+
         if(isDead)
         {
             //should player fall through the floor when dead?
@@ -140,7 +157,7 @@ public class NinjaController : MonoBehaviour {
         {
             while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
-                if(NumberEventManager.attempt_answer != null)
+                if(NumberEventManager.user_answer != NumberEventManager.NO_ANSWER)
                 {
                     break;
                 }
@@ -161,7 +178,7 @@ public class NinjaController : MonoBehaviour {
             }
 
             //checks if player dies by grabbing the wrong answer
-            if (NumberEventManager.attempt_answer != null)
+            if (NumberEventManager.user_answer != NumberEventManager.NO_ANSWER)
             {
                 IsDead = isDead = (NumberEventManager.HasCorrectAnswer) ? false : true;
             }

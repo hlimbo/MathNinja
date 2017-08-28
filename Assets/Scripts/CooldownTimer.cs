@@ -13,7 +13,6 @@ public class CooldownTimer : MonoBehaviour {
 
     private Image cooldownImage;
     private TextMeshProUGUI cooldownText;
-    //private NumberEventManager eventManager;
 
     [SerializeField]
     private float updateFrequency;
@@ -71,6 +70,7 @@ public class CooldownTimer : MonoBehaviour {
         canStartTimer = true;
         cooldownImage.fillAmount = 1.0f; 
         countdownTime = duration;
+        cooldownText.text = countdownTime.ToString();
 
         Debug.Assert(cooldownImage.fillAmount == 1.0f);
 
@@ -78,7 +78,7 @@ public class CooldownTimer : MonoBehaviour {
         float elapsedTime = NumberEventManager.elapsedTime;
         while (elapsedTime < duration)
         {
-            if (NumberEventManager.attempt_answer != null)
+            if (NumberEventManager.user_answer != NumberEventManager.NO_ANSWER)
             {
                 canStartTimer = false;
                 yield return new WaitForSeconds(NumberEventManager.DisplayDelay);

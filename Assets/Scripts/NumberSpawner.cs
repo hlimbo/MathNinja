@@ -16,12 +16,18 @@ public class NumberSpawner : MonoBehaviour {
     //for rng
     public int min, max;
 
+    //workaround could be to store my own copies of the random values as ints since the text rendered on screen
+    //doesn't reflect its associated string value sometimes.
+    public static int[] numbers;//use this to compare against answer
+
     private Stack<GameObject> inactiveGOs;
 
     private void Awake()
     {
         possibleAnswers = new List<GameObject>();
         inactiveGOs = new Stack<GameObject>();
+
+        numbers = new int[3];
     }
 
     // Use this for initialization
@@ -77,7 +83,7 @@ public class NumberSpawner : MonoBehaviour {
             while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
                 //interruptable timer condition setup
-                if(NumberEventManager.attempt_answer != null)
+                if(NumberEventManager.user_answer != NumberEventManager.NO_ANSWER)
                 {
                     //find all game objects that become disabled
                     foreach(GameObject numberGO in possibleAnswers)
@@ -90,6 +96,13 @@ public class NumberSpawner : MonoBehaviour {
                 }
 
                 yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
+            }
+
+            //find all game objects that become disabled
+            foreach (GameObject numberGO in possibleAnswers)
+            {
+                if (!numberGO.activeInHierarchy)
+                    inactiveGOs.Push(numberGO);
             }
 
             yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
@@ -108,53 +121,40 @@ public class NumberSpawner : MonoBehaviour {
 
         foreach(GameObject numberGO in possibleAnswers)
         {
-            TextMeshPro numberText = numberGO.GetComponent<TextMeshPro>();
+            NumberText numberText = numberGO.GetComponent<NumberText>();
             BoxCollider2D numberBox = numberGO.GetComponent<BoxCollider2D>();
-            Debug.Assert(numberText != null, "TextMeshPro Component is not attached to this game object");
+            Debug.Assert(numberText != null, "NumberText Component is not attached to this game object");
             Debug.Assert(numberBox != null, "BoxCollider2D Component is not attached to this game object");
 
             if (index++ == correctAnswerIndex)
             {
-                //this will only be a problem if I decide to call this on Update()
-                if(NumberEventManager.product == NumberEventManager.NO_PRODUCT)
-                {
-                    Debug.Log("a new product for the correct answer to the new question has not been evaluated yet.");
-                    Debug.Log("this can be due to NumberEventManager's coroutine displayDelay placed in GenerateQuestion()");
-                }
-                else
-                {
-                    string correctAnswer = NumberEventManager.product.ToString();
-                    Vector2 boxColliderSize = numberText.GetPreferredValues(correctAnswer);
-                    numberBox.size = boxColliderSize;
-                    //SetText does not update the text property!
-                   // numberText.SetText(correctAnswer);
-                    numberText.text = correctAnswer;
-                }
+                numberText.value = NumberEventManager.product;
+                numberText.text = NumberEventManager.product.ToString();
+                Vector2 boxColliderSize = numberText.GetPreferredValues();
+                numberBox.size = boxColliderSize;
             }
             else
             {
-                string randomNumber = Random.Range(min, max).ToString();
-                Vector2 boxColliderSize = numberText.GetPreferredValues(randomNumber);
+                int randomNumber = Random.Range(min, max);
+                numberText.value = randomNumber;
+                numberText.text = randomNumber.ToString();
+                Vector2 boxColliderSize = numberText.GetPreferredValues();
                 numberBox.size = boxColliderSize;
-                //SetText does not update the text property!
-                //numberText.SetText(randomNumber);
-                numberText.text = randomNumber;
             }
             
         }
-
-        //logging for development build
-        //DebugPrintNumbers();
     }
 
     //private void DebugPrintNumbers()
     //{
     //    Debug.Log("Numbers set: ");
-    //    foreach(GameObject numberGO in possibleAnswers)
+    //    for(int i = 0;i < possibleAnswers.Count;++i)
     //    {
-    //        TextMeshPro numberText = numberGO.GetComponent<TextMeshPro>();
+    //        GameObject numberGO = possibleAnswers[i];
+    //        NumberText numberText = numberGO.GetComponent<NumberText>();
     //        Debug.Log(numberText.text);
+    //        int.TryParse(numberText.text,out numbers[i]);
     //    }
     //}
- 
+
 }
