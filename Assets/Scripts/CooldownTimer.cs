@@ -71,8 +71,8 @@ public class CooldownTimer : MonoBehaviour {
         cooldownImage.fillAmount = 1.0f; 
         countdownTime = duration;
         cooldownText.text = countdownTime.ToString();
-
-        Debug.Assert(cooldownImage.fillAmount == 1.0f);
+        countdownTime -= NumberEventManager.UpdateFrequency;
+        yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
 
         int numIterations = 0;
         float elapsedTime = NumberEventManager.elapsedTime;
@@ -92,17 +92,13 @@ public class CooldownTimer : MonoBehaviour {
 
             cooldownText.text = countdownTime.ToString();
             cooldownImage.fillAmount = 1.0f - (elapsedTime/ duration);
-            countdownTime -= updateFrequency;
+            countdownTime -= NumberEventManager.UpdateFrequency;
 
-            yield return new WaitForSeconds(updateFrequency);
+            yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
             elapsedTime = NumberEventManager.elapsedTime;
             numIterations++;
         }
 
-        if(countdownTime < 0.0f)
-        {
-            Debug.Log("Countdown time: " + countdownTime);
-        }
         //countdownTime = 0.0f;
         cooldownImage.fillAmount = 0.0f;
         cooldownText.text = countdownTime.ToString();

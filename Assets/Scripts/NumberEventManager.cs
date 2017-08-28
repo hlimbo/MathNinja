@@ -91,11 +91,13 @@ public class NumberEventManager : MonoBehaviour
             gameTexts[1].color = Color.white;
             user_answer = NO_ANSWER;
 
-
             //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
             //updateDuration's time frame.
             startTime = Time.time;
-            displayElapsedTime = elapsedTime = 0.0f;
+
+            yield return new WaitForSeconds(updateFrequency);
+
+            displayElapsedTime = elapsedTime = Time.time - startTime;
             while (elapsedTime < updateDuration)
             {
                 //I have to possibly check twice for the correct answer

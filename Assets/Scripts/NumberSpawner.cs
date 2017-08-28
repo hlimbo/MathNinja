@@ -80,6 +80,8 @@ public class NumberSpawner : MonoBehaviour {
 
             GeneratePossibleAnswers(min, max);
 
+            yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
+
             while(NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
                 //interruptable timer condition setup

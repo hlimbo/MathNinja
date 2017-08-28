@@ -7,17 +7,24 @@ using TMPro;
 public class OnTouchDisappear : MonoBehaviour {
 
     private NumberText numberText;
+    private Collider2D numberCollider;
 
     private void Awake()
     {
-        numberText = GetComponent<NumberText>();       
+        numberText = GetComponent<NumberText>();
+        numberCollider = GetComponent<Collider2D>();
+    }
+
+    private void Update()
+    {
+        numberCollider.enabled = (NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration) ? true : false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.Equals("Player"))
         {
-            if (NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration && NumberEventManager.user_answer == NumberEventManager.NO_ANSWER)
+            if (NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration)
             {
                 NumberEventManager.user_answer = numberText.value;
                 gameObject.SetActive(false);
