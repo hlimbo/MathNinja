@@ -47,6 +47,13 @@ public class NinjaController : MonoBehaviour {
 
     private Camera mainCam;
 
+    //possibly rework jump such that its jump height determines how many seconds player is accelerating upwards in the y direction
+    public static float MinJumpHeight { get; private set; }
+    [SerializeField]
+    private float jumpHeight;//view the most recent jumpHeight the player can achieve within jumpTime seconds
+
+    public static float UNDETERMINED_JUMP_HEIGHT = 99999;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -54,6 +61,8 @@ public class NinjaController : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         playerCollider = GetComponent<Collider2D>();
         IsDead = isDead = false;
+        MinJumpHeight = UNDETERMINED_JUMP_HEIGHT;
+        jumpHeight = 0;
     }
 
     void Start ()
@@ -115,13 +124,14 @@ public class NinjaController : MonoBehaviour {
                 beginJumpY = rb.position.y;
                 beginJumpTime = Time.time;
                 animator.SetBool("isJumping", true);
+                jumpHeight = 0;
             }
         }
 
         if (beginJump)
         {
             float timeElapsed = Time.time - beginJumpTime;
-            if (timeElapsed <= jumpTime)
+            if (timeElapsed < jumpTime)
             {
                 jumpAccel = new Vector2(0.0f, jumpSpeed) * Time.deltaTime;
                 if (rb.velocity.y > maxJumpSpeed)
@@ -132,9 +142,19 @@ public class NinjaController : MonoBehaviour {
                 {
                     rb.AddForce(jumpAccel, ForceMode2D.Impulse);
                 }
+
+                jumpHeight += rb.velocity.y;
             }
-            else if(timeElapsed > jumpTime)
+            else if(timeElapsed >= jumpTime)
             {
+                //minimize jumpHeight here to ensure player will be able to jump on top of the next randomly generated
+                //platform on screen
+                if(jumpHeight < MinJumpHeight)
+                {
+                    Debug.Log("new min jump height: " + jumpHeight);
+                    MinJumpHeight = jumpHeight;
+                }
+
                 //check if on floor
                 Vector2 feetPos = new Vector2(rb.position.x, rb.position.y - sr.bounds.extents.y);
                 onFloor = Physics2D.OverlapCircle(feetPos,0.1f, floorMask);
