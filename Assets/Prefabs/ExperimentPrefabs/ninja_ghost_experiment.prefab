@@ -100,8 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTime: 0
-  duration: 3
-  jumpHeight: 0
+  duration: 0
+  jumpHeight: 50
+  recordedJumpHeight: 0
   yVelocities: []
   jumpAccel: 25
   jumpDirection: 1
