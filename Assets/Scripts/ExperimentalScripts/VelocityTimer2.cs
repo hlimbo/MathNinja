@@ -29,7 +29,7 @@ public class VelocityTimer2 : MonoBehaviour {
     }
 
     public float jumpHeight;
-    [Range(0.0f,1.0f)]
+    [Tooltip("SpeedFactor controls how fast player jumps off from floor.This value will be clamped by its jumpSpeed if this value is ridiculously high")]
     public float speedFactor;
     [SerializeField]
     private  float recordedJumpHeight;
@@ -52,6 +52,9 @@ public class VelocityTimer2 : MonoBehaviour {
 
     public LayerMask floorMask;
 
+    [SerializeField]
+    private Vector2 rbVelocity;
+
 	// Use this for initialization
 	void Start () {
 
@@ -59,11 +62,13 @@ public class VelocityTimer2 : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
 
         //temporarily set gravity here to ensure its a perfect square
+        //should set this value in the unity settings instead
         Physics2D.gravity = new Vector2(0.0f, -8.0f);
 
         Debug.Log("Physics2D gravity: " + Physics2D.gravity);
-       jumpSpeed = CalculateJumpVerticalSpeed(jumpHeight,speedFactor);
-       Debug.Log("Jump Speed: " + jumpSpeed);
+        jumpSpeed = CalculateJumpVerticalSpeed(jumpHeight);
+        Debug.Log("Jump Speed: " + jumpSpeed);
+        speedFactor = speedFactor > jumpSpeed ? jumpSpeed : speedFactor;
 
         jumpTime = Mathf.Sqrt(2 * jumpHeight / Mathf.Abs(Physics2D.gravity.y));
         Debug.Log("jump Time: " + jumpTime);
@@ -76,6 +81,8 @@ public class VelocityTimer2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+
+        rbVelocity = new Vector2(rb.velocity.x, rb.velocity.y);
 
         if(Input.GetButtonDown("Jump"))
         {
@@ -94,9 +101,9 @@ public class VelocityTimer2 : MonoBehaviour {
             recordedJumpHeight = rb.position.y - beginJumpY;
             if (recordedJumpHeight < jumpHeight)
             {
-                if(rb.velocity.y == 0.0f)
+                if(rb.velocity.y < jumpVelocity.y)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpVelocity.y);
+                    rb.velocity = new Vector2(rb.velocity.x, jumpVelocity.y * speedFactor + rb.velocity.y);
                 }
                 else
                 {
@@ -141,11 +148,10 @@ public class VelocityTimer2 : MonoBehaviour {
     }
 
     //this calculates a reasonable jump velocity to work with
-    //speedFactor should be a value between 0.0f - 1.0f that affects how much faster the player will jump!
-    public float CalculateJumpVerticalSpeed(float targetJumpHeight,float speedFactor)
+    public float CalculateJumpVerticalSpeed(float targetJumpHeight)
     {
         // From the jump height and gravity we deduce the upwards speed 
         // for the character to reach at the apex.
-        return Mathf.Sqrt(2f * targetJumpHeight * Mathf.Abs(Physics2D.gravity.y) * (1.0f + speedFactor));
+        return Mathf.Sqrt(2f * targetJumpHeight * Mathf.Abs(Physics2D.gravity.y));
     }
 }

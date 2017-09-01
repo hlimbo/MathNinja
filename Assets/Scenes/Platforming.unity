@@ -339,8 +339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be033b503052434cb0912c2f90c0da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 4
-  speedFactor: 0
+  jumpHeight: 1
+  speedFactor: 0.25
   recordedJumpHeight: 0
   jumpSpeed: 0
   pState: 0
@@ -350,6 +350,7 @@ MonoBehaviour:
   floorMask:
     serializedVersion: 2
     m_Bits: 256
+  rbVelocity: {x: 0, y: 0}
 --- !u!1 &410628192
 GameObject:
   m_ObjectHideFlags: 0
