@@ -61,10 +61,6 @@ public class VelocityTimer2 : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
-        //temporarily set gravity here to ensure its a perfect square
-        //should set this value in the unity settings instead
-        Physics2D.gravity = new Vector2(0.0f, -8.0f);
-
         Debug.Log("Physics2D gravity: " + Physics2D.gravity);
         jumpSpeed = CalculateJumpVerticalSpeed(jumpHeight);
         Debug.Log("Jump Speed: " + jumpSpeed);
