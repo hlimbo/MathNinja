@@ -38,6 +38,8 @@ public class NinjaController : MonoBehaviour {
     [SerializeField]
     private float timeElapsed;
 
+    public static float JumpHeight { get; private set; }
+
     public LayerMask floorMask;
 
     [SerializeField]
@@ -53,9 +55,6 @@ public class NinjaController : MonoBehaviour {
 
     private Camera mainCam;
 
-    //possibly rework jump such that its jump height determines how many seconds player is accelerating upwards in the y direction
-    public static float MinJumpHeight { get; private set; }
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -67,6 +66,7 @@ public class NinjaController : MonoBehaviour {
 
     void Start ()
     {
+        JumpHeight = jumpHeight;
         aState = AIR_STATE.FALLING;
         mainCam = Camera.main;
 
