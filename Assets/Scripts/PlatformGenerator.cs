@@ -45,6 +45,11 @@ public class PlatformGenerator : MonoBehaviour {
         float xPlatformOffset = platformCollider.size.x / 2;
         for(int i = 0;i < spawnCount;++i)
         {
+            //the issue with this code is that the top edge and bottom edge locations of the camera are not
+            //assigned to their proper locations. That is, it only takes the minHeight and maxHeight of the
+            //camera and centers those y-positions around this gameobject's position. I want the top edge and bottom
+            //edge y positions of the camera to remain  relative to this game-object's coordinates without changing the 
+            //camera's top and bottom edge y positions in world space
             float randomHeight;
             float minHeight = (-mainCam.orthographicSize * ySpread) + halfPlatformHeight;
             float maxHeight = (mainCam.orthographicSize * ySpread) - halfPlatformHeight;
@@ -57,8 +62,8 @@ public class PlatformGenerator : MonoBehaviour {
             {
                 //generate all other platform heights based on the previous platform's position and and player's jump height
                 GameObject prevPlatform = platforms[i - 1];
-                float minHeightMod = prevPlatform.transform.position.y - ninja.jumpHeight * 2;
-                float maxHeightMod = prevPlatform.transform.position.y + ninja.jumpHeight * 2;
+                float minHeightMod = prevPlatform.transform.localPosition.y - ninja.jumpHeight * 2;
+                float maxHeightMod = prevPlatform.transform.localPosition.y + ninja.jumpHeight * 2;
                 if (minHeightMod < minHeight)
                     minHeightMod = minHeight;
                 if (maxHeightMod > maxHeight)
@@ -67,10 +72,13 @@ public class PlatformGenerator : MonoBehaviour {
                 randomHeight = Random.Range(minHeightMod, maxHeightMod);
             }
 
+            //set the location of each platform relative to this gameobject's transform position.
             GameObject platform = Instantiate<GameObject>(platformPrefab, transform);
             platform.transform.localPosition = new Vector3(i * xPadding + xPlatformOffset, randomHeight, 0.0f);
             platforms.Add(platform);
         }
+
+        DisplayWorldandLocalCoords();
 
 	}
 	
@@ -82,7 +90,6 @@ public class PlatformGenerator : MonoBehaviour {
         float halfPlatformHeight = platformCollider.size.y / 2;
         float minHeight = (-cam.orthographicSize * ySpread) + halfPlatformHeight;
         float maxHeight = (cam.orthographicSize * ySpread) - halfPlatformHeight;
-
 
         return Random.Range(minHeight, maxHeight);
     }
@@ -109,9 +116,9 @@ public class PlatformGenerator : MonoBehaviour {
                 platforms.Remove(platform);
 
                 //make the height of the next platform to appear to have a random height that can be reached by the player when jumping and or falling
-                float minHeightMod = lastPlatform.transform.position.y - ninja.jumpHeight * 2;
-                float maxHeightMod = lastPlatform.transform.position.y + ninja.jumpHeight * 2;
-
+                float minHeightMod = lastPlatform.transform.localPosition.y - ninja.jumpHeight * 2;
+                float maxHeightMod = lastPlatform.transform.localPosition.y + ninja.jumpHeight * 2;
+                
                 if (minHeightMod < minHeight)
                     minHeightMod = minHeight;
                 if (maxHeightMod > maxHeight)
@@ -120,10 +127,26 @@ public class PlatformGenerator : MonoBehaviour {
                 float randomHeight = Random.Range(minHeightMod, maxHeightMod);
                 float xPadding = platformBox.size.x * xSpread + platformBox.size.x;
                 //the new position of the platform that is offscreen will the rightmost platform's x position + some padding.
-                rb.position = new Vector2(lastPlatform.transform.position.x + xPadding, randomHeight);
+                platform.transform.localPosition = new Vector2(lastPlatform.transform.localPosition.x + xPadding, randomHeight);
                 platforms.Add(platform);
             }
         }
 		
 	}
+
+    //debug function
+    private void DisplayWorldandLocalCoords()
+    {
+        Debug.Log("World Coordinates::");
+        foreach(GameObject platform in platforms)
+        {
+            Debug.Log(platform.name + ": " + platform.transform.position);
+        }
+
+        Debug.Log("LocalCoordinates::");
+        foreach(GameObject platform in platforms)
+        {
+            Debug.Log(platform.name + ": " + platform.transform.localPosition);
+        }
+    }
 }

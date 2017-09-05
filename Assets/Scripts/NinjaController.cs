@@ -184,8 +184,8 @@ public class NinjaController : MonoBehaviour {
                 {
                     Transform cameraTransform = mainCam.GetComponent<Transform>();
                     Debug.Assert(cameraTransform != null);
-                    if (transform.position.y < cameraTransform.position.y - mainCam.orthographicSize ||
-                        transform.position.y > cameraTransform.position.y + mainCam.orthographicSize)
+                    if (transform.position.y < cameraTransform.position.y - mainCam.orthographicSize) //||
+                        //transform.position.y > cameraTransform.position.y + mainCam.orthographicSize)
                     {
                         IsDead = isDead = true;
                         break;
