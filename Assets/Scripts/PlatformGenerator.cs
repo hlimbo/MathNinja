@@ -8,9 +8,8 @@ public class PlatformGenerator : MonoBehaviour {
     public int spawnCount;
 
     [Tooltip("How far apart each platform spawned should be in the x-axis.This takes in the platformPrefab's width and adds a percentage to it")]
-    [Range(0.0f,1.0f)]
+    [Range(0.0f, 1.0f)]
     public float xSpread;
-
     [Tooltip("The percentage of minHeight and maxHeight needs to be  when spawning platforms of random height")]
     [Range(0.0f, 1.0f)]
     public float ySpread;
@@ -20,10 +19,19 @@ public class PlatformGenerator : MonoBehaviour {
 
     [SerializeField]
     private List<GameObject> platforms;
-
     private Camera mainCam;
-
     private NinjaController ninja;
+    private float halfPlatformHeight;
+    private float xPadding;//how far apart each platform should be along the x-axis
+
+    private float localTopCamEdge;
+    private float localBotCamEdge;
+
+    //debugging
+    [SerializeField]
+    private float modCamHalfHeight;
+    [SerializeField]
+    private float modCamHeight;
 
     private void Awake()
     {
@@ -31,122 +39,95 @@ public class PlatformGenerator : MonoBehaviour {
         mainCam = Camera.main;
     }
 
-    // Use this for initialization
     void Start () {
-
         Debug.Assert(platformPrefab != null);
-
+        Debug.Assert(spawnCount > 0);
         ninja = FindObjectOfType<NinjaController>();
 
         BoxCollider2D platformCollider = platformPrefab.GetComponent<BoxCollider2D>();
-        float halfPlatformHeight = platformCollider.size.y / 2;
-        float xPadding = platformCollider.size.x * xSpread + platformCollider.size.x;
+        halfPlatformHeight = platformCollider.size.y / 2;
+        xPadding = (xSpread + 1) * platformCollider.size.x;
 
-        float xPlatformOffset = platformCollider.size.x / 2;
-        for(int i = 0;i < spawnCount;++i)
+        float platformHalfWidth = platformCollider.size.x / 2;
+
+        //this is in world coordinates
+        float topCamEdge = mainCam.transform.position.y + (mainCam.orthographicSize * ySpread - halfPlatformHeight);
+        float botCamEdge = mainCam.transform.position.y - (mainCam.orthographicSize * ySpread + halfPlatformHeight);
+
+        //the top edge of the camera's y location is relative to this game object's y position
+        localTopCamEdge = topCamEdge - transform.position.y;
+        localBotCamEdge = botCamEdge - transform.position.y;
+
+        //assign the first platform's height to be between the camera's bottom edge and top edge
+        //where the y positions of the camera's top and bottom edges are relative to this game object's y position
+        //since all platform prefab objects will be parented to this game object
+        float randomHeight = Random.Range(localBotCamEdge, localTopCamEdge);
+
+        GameObject platform = Instantiate<GameObject>(platformPrefab, transform, false);
+        platform.transform.localPosition = new Vector3(platformHalfWidth, randomHeight, 0.0f);
+        platforms.Add(platform);
+
+        //generate all other platform heights based on the previous platform's height and the player's jump height
+        for(int i = 1;i < spawnCount;++i)
         {
-            //the issue with this code is that the top edge and bottom edge locations of the camera are not
-            //assigned to their proper locations. That is, it only takes the minHeight and maxHeight of the
-            //camera and centers those y-positions around this gameobject's position. I want the top edge and bottom
-            //edge y positions of the camera to remain  relative to this game-object's coordinates without changing the 
-            //camera's top and bottom edge y positions in world space
-            float randomHeight;
-            float minHeight = (-mainCam.orthographicSize * ySpread) + halfPlatformHeight;
-            float maxHeight = (mainCam.orthographicSize * ySpread) - halfPlatformHeight;
-            if (i == 0)
-            {
-                //generate the first platform's height between the camera's y boundaries
-                randomHeight = Random.Range(minHeight, maxHeight);
-            }
-            else
-            {
-                //generate all other platform heights based on the previous platform's position and and player's jump height
-                GameObject prevPlatform = platforms[i - 1];
-                float minHeightMod = prevPlatform.transform.localPosition.y - ninja.jumpHeight * 2;
-                float maxHeightMod = prevPlatform.transform.localPosition.y + ninja.jumpHeight * 2;
-                if (minHeightMod < minHeight)
-                    minHeightMod = minHeight;
-                if (maxHeightMod > maxHeight)
-                    maxHeightMod = maxHeight;
+            GameObject prevPlatform = platforms[i - 1];
+            float minHeightMod = prevPlatform.transform.localPosition.y - ninja.jumpHeight;
+            float maxHeightMod = prevPlatform.transform.localPosition.y + ninja.jumpHeight;
+            if (minHeightMod < localBotCamEdge)
+                minHeightMod = localBotCamEdge;
+            if (maxHeightMod > localTopCamEdge)
+                maxHeightMod = localTopCamEdge;
 
-                randomHeight = Random.Range(minHeightMod, maxHeightMod);
-            }
+            randomHeight = Random.Range(minHeightMod, maxHeightMod);
 
-            //set the location of each platform relative to this gameobject's transform position.
-            GameObject platform = Instantiate<GameObject>(platformPrefab, transform);
-            platform.transform.localPosition = new Vector3(i * xPadding + xPlatformOffset, randomHeight, 0.0f);
-            platforms.Add(platform);
+            GameObject platformClone = Instantiate<GameObject>(platformPrefab, transform, false);
+            platformClone.transform.localPosition = new Vector3(i * xPadding + platformHalfWidth, randomHeight, 0.0f);
+            platforms.Add(platformClone);
         }
 
-        DisplayWorldandLocalCoords();
+        Debug.Log(mainCam.pixelRect.ToString());
 
-	}
-	
-    private float GenerateRandomPlatformHeight(GameObject prefab,Camera cam)
-    {
-        Debug.Assert(prefab != null);
-        BoxCollider2D platformCollider = prefab.GetComponent<BoxCollider2D>();
-        Debug.Assert(platformCollider != null);
-        float halfPlatformHeight = platformCollider.size.y / 2;
-        float minHeight = (-cam.orthographicSize * ySpread) + halfPlatformHeight;
-        float maxHeight = (cam.orthographicSize * ySpread) - halfPlatformHeight;
-
-        return Random.Range(minHeight, maxHeight);
     }
 
-	// Update is called once per frame
-	void Update () {
+    void Update () {
 
+        //debugging
+        //modCamHalfHeight = mainCam.orthographicSize * ySpread;
+        //modCamHeight = modCamHalfHeight * 2;
+
+        //move each platform
         Vector2 moveVelocity = new Vector2(moveSpeed * direction * Time.deltaTime, 0.0f);
-        for(int i = 0;i < platforms.Count;++i)
+        foreach(GameObject platform in platforms)
+        {
+            platform.GetComponent<Rigidbody2D>().velocity = moveVelocity;
+        }
+
+        //set the location of the platform next to the rightmost platform
+        //when the platform leaves camera view
+        for (int i = 0; i < platforms.Count; ++i)
         {
             GameObject platform = platforms[i];
-            Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
-            rb.velocity = moveVelocity;
             BoxCollider2D platformBox = platform.GetComponent<BoxCollider2D>();
             float camHalfWidth = (mainCam.orthographicSize * 2 * mainCam.aspect) / 2;
             float leftCamEdge = mainCam.transform.position.x - camHalfWidth;
             if (platformBox.bounds.center.x + platformBox.bounds.extents.x < leftCamEdge)
             {
-                float halfPlatformHeight = platformPrefab.GetComponent<BoxCollider2D>().size.y / 2;
-                float minHeight = (-mainCam.orthographicSize * ySpread) + halfPlatformHeight;
-                float maxHeight = (mainCam.orthographicSize * ySpread) - halfPlatformHeight;
                 GameObject lastPlatform = platforms[platforms.Count - 1];
 
                 platforms.Remove(platform);
 
-                //make the height of the next platform to appear to have a random height that can be reached by the player when jumping and or falling
-                float minHeightMod = lastPlatform.transform.localPosition.y - ninja.jumpHeight * 2;
-                float maxHeightMod = lastPlatform.transform.localPosition.y + ninja.jumpHeight * 2;
-                
-                if (minHeightMod < minHeight)
-                    minHeightMod = minHeight;
-                if (maxHeightMod > maxHeight)
-                    maxHeightMod = maxHeight;
+                float minHeightMod = lastPlatform.transform.localPosition.y - ninja.jumpHeight;
+                float maxHeightMod = lastPlatform.transform.localPosition.y + ninja.jumpHeight;
+                if (minHeightMod < localBotCamEdge)
+                    minHeightMod = localBotCamEdge;
+                if (maxHeightMod > localTopCamEdge)
+                    maxHeightMod = localTopCamEdge;
 
                 float randomHeight = Random.Range(minHeightMod, maxHeightMod);
-                float xPadding = platformBox.size.x * xSpread + platformBox.size.x;
-                //the new position of the platform that is offscreen will the rightmost platform's x position + some padding.
                 platform.transform.localPosition = new Vector2(lastPlatform.transform.localPosition.x + xPadding, randomHeight);
+
                 platforms.Add(platform);
             }
-        }
-		
-	}
-
-    //debug function
-    private void DisplayWorldandLocalCoords()
-    {
-        Debug.Log("World Coordinates::");
-        foreach(GameObject platform in platforms)
-        {
-            Debug.Log(platform.name + ": " + platform.transform.position);
-        }
-
-        Debug.Log("LocalCoordinates::");
-        foreach(GameObject platform in platforms)
-        {
-            Debug.Log(platform.name + ": " + platform.transform.localPosition);
         }
     }
 }
