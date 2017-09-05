@@ -803,8 +803,8 @@ MonoBehaviour:
   platformPrefab: {fileID: 1305809304502302, guid: 52c7046fcfab18043b8683dbb972639d,
     type: 2}
   spawnCount: 5
-  xSpread: 0.5
-  ySpread: 0.5
+  xSpread: 0.65
+  ySpread: 0.75
   moveSpeed: 250
   direction: -1
   platforms: []

@@ -57,8 +57,8 @@ public class PlatformGenerator : MonoBehaviour {
             {
                 //generate all other platform heights based on the previous platform's position and and player's jump height
                 GameObject prevPlatform = platforms[i - 1];
-                float minHeightMod = prevPlatform.transform.position.y - ninja.jumpHeight;
-                float maxHeightMod = prevPlatform.transform.position.y + ninja.jumpHeight;
+                float minHeightMod = prevPlatform.transform.position.y - ninja.jumpHeight * 2;
+                float maxHeightMod = prevPlatform.transform.position.y + ninja.jumpHeight * 2;
                 if (minHeightMod < minHeight)
                     minHeightMod = minHeight;
                 if (maxHeightMod > maxHeight)
@@ -109,8 +109,8 @@ public class PlatformGenerator : MonoBehaviour {
                 platforms.Remove(platform);
 
                 //make the height of the next platform to appear to have a random height that can be reached by the player when jumping and or falling
-                float minHeightMod = lastPlatform.transform.position.y - ninja.jumpHeight;
-                float maxHeightMod = lastPlatform.transform.position.y + ninja.jumpHeight;
+                float minHeightMod = lastPlatform.transform.position.y - ninja.jumpHeight * 2;
+                float maxHeightMod = lastPlatform.transform.position.y + ninja.jumpHeight * 2;
 
                 if (minHeightMod < minHeight)
                     minHeightMod = minHeight;
