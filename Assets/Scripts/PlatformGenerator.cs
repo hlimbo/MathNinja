@@ -92,13 +92,15 @@ public class PlatformGenerator : MonoBehaviour {
                 // float randomHeight = GenerateRandomPlatformHeight(platformPrefab, mainCam);
 
                 //generate random height based on the right most platform's height and the player's jump height
-                GameObject lastPlatform = platforms[platforms.Count - 1];
-                float randomHeight;
-                if (NinjaController.MinJumpHeight == NinjaController.UNDETERMINED_JUMP_HEIGHT)
-                    randomHeight = GenerateRandomPlatformHeight(platformPrefab, mainCam);
-                else
-                    randomHeight = Random.Range(lastPlatform.transform.position.y, NinjaController.MinJumpHeight);
+                //GameObject lastPlatform = platforms[platforms.Count - 1];
+                //float randomHeight;
+                //if (NinjaController.MinJumpHeight == NinjaController.UNDETERMINED_JUMP_HEIGHT)
+                //    randomHeight = GenerateRandomPlatformHeight(platformPrefab, mainCam);
+                //else
+                //    randomHeight = Random.Range(lastPlatform.transform.position.y, NinjaController.MinJumpHeight);
 
+                GameObject lastPlatform = platforms[platforms.Count - 1];
+                float randomHeight = GenerateRandomPlatformHeight(platformPrefab, mainCam);
 
                 float xPadding = platformBox.size.x * xSpread + platformBox.size.x;
                 //the new position of the platform that is offscreen will the rightmost platform's x position + some padding.

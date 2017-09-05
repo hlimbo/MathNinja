@@ -6,36 +6,42 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NinjaController : MonoBehaviour {
 
+    public enum AIR_STATE
+    {
+        FLOOR,
+        JUMPING,
+        FALLING
+    }
+
+    //component variables required for this gameobject to properly function
     private Animator animator;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Collider2D playerCollider;
 
-    [SerializeField]
-    private int direction;
+    //running variables
     [SerializeField]
     private Vector2 moveAccel;
-
     public float moveSpeed;
     public Vector2 maxSpeed;
 
-    public float jumpSpeed;
-    public float maxJumpSpeed;
-    public float minJumpSpeed;
-    private Vector2 jumpAccel;
-    [SerializeField]
-    private bool beginJump;
-    public float jumpTime;
-    [SerializeField]
+    //jumping variables ~ todo: calculate jump velocity based on jump height, worry about how fast it accelerates to target jump velocity later on
+    public float jumpHeight;
+    private float beginJumpY;
     private float beginJumpTime;
-    public float beginJumpY;
+    [SerializeField]
+    private float recordedJumpHeight;
+    [SerializeField]
+    private float jumpSpeed;
+    [SerializeField]
+    private AIR_STATE aState;
+    [SerializeField]
+    private float timeElapsed;
+
     public LayerMask floorMask;
 
     [SerializeField]
     private Vector2 rbVelocity;
-
-    [SerializeField]
-    private bool onFloor;
 
     [SerializeField]
     private bool isDead;
@@ -49,10 +55,6 @@ public class NinjaController : MonoBehaviour {
 
     //possibly rework jump such that its jump height determines how many seconds player is accelerating upwards in the y direction
     public static float MinJumpHeight { get; private set; }
-    [SerializeField]
-    private float jumpHeight;//view the most recent jumpHeight the player can achieve within jumpTime seconds
-
-    public static float UNDETERMINED_JUMP_HEIGHT = 99999;
 
     private void Awake()
     {
@@ -61,16 +63,15 @@ public class NinjaController : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         playerCollider = GetComponent<Collider2D>();
         IsDead = isDead = false;
-        MinJumpHeight = UNDETERMINED_JUMP_HEIGHT;
-        jumpHeight = 0;
     }
 
     void Start ()
     {
-        direction = 0;
-        onFloor = false;
-        beginJump = false;
+        aState = AIR_STATE.FALLING;
         mainCam = Camera.main;
+
+        //calculate jump speed based on jump height and the gravity using a kinematic equation
+        jumpSpeed = Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
 
         //debugging
         if (enableFlyMode)
@@ -98,19 +99,10 @@ public class NinjaController : MonoBehaviour {
             return;
         }
 
-        direction = (int)Input.GetAxisRaw("Horizontal");
-
         //this is accelerating the player every frame
-        moveAccel = new Vector2(direction * moveSpeed, 0.0f) * Time.deltaTime;
+        int direction = (int)Input.GetAxisRaw("Horizontal");
+        moveAccel = new Vector2(moveSpeed * Time.deltaTime * direction, 0.0f);
         rb.AddForce(moveAccel, ForceMode2D.Impulse);
-
-        animator.SetBool("isRunning", moveAccel.x != 0.0f);
-
-        if (direction < 0)
-            sr.flipX = true;
-        else if (direction > 0)
-            sr.flipX = false;
-
         //clamp speed
         if (Mathf.Abs(rb.velocity.x) > maxSpeed.x)
             rb.velocity = new Vector2(maxSpeed.x * direction, rb.velocity.y);
@@ -118,53 +110,56 @@ public class NinjaController : MonoBehaviour {
         //jumping
         if (Input.GetButtonDown("Jump"))
         {
-            if (!beginJump)
+            if (aState == AIR_STATE.FLOOR)
             {
-                beginJump = true;
+                aState = AIR_STATE.JUMPING;
                 beginJumpY = rb.position.y;
                 beginJumpTime = Time.time;
-                animator.SetBool("isJumping", true);
-                jumpHeight = 0;
             }
         }
 
-        if (beginJump)
+        //fixed jump height
+        if (aState == AIR_STATE.JUMPING)
         {
-            float timeElapsed = Time.time - beginJumpTime;
-            if (timeElapsed < jumpTime)
+            timeElapsed = Time.time - beginJumpTime;
+            recordedJumpHeight = rb.position.y - beginJumpY;
+            if (recordedJumpHeight < jumpHeight)
             {
-                jumpAccel = new Vector2(0.0f, jumpSpeed) * Time.deltaTime;
-                if (rb.velocity.y > maxJumpSpeed)
+                if (rb.velocity.y < jumpSpeed)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, maxJumpSpeed);
-                }
-                else
-                {
+                    //increase the rate of the jump velocity by some jumpFactor percentage every frame
+                    float jumpFactor = 0.25f;
+                    Vector2 jumpAccel = new Vector2(0.0f, jumpSpeed * jumpFactor + rb.velocity.y);
                     rb.AddForce(jumpAccel, ForceMode2D.Impulse);
                 }
-
-                jumpHeight += rb.velocity.y;
+                else //otherwise,if rb.velocity.y exceeds or matches the jumpSpeed
+                {
+                    //slowly decelerate the y velocity down to zero which will smoothly transition the player between jumping and falling
+                    float jumpVelPercent = Mathf.InverseLerp(0.0f, jumpHeight * 2, recordedJumpHeight);
+                    float newJumpVelocity = Mathf.Lerp(0.0f, jumpSpeed * 2, 1.0f - jumpVelPercent);
+                    rb.velocity = new Vector2(rb.velocity.x, newJumpVelocity);
+                }
             }
-            else if(timeElapsed >= jumpTime)
+            else
             {
-                //minimize jumpHeight here to ensure player will be able to jump on top of the next randomly generated
-                //platform on screen
-                if(jumpHeight < MinJumpHeight)
-                {
-                    Debug.Log("new min jump height: " + jumpHeight);
-                    MinJumpHeight = jumpHeight;
-                }
-
-                //check if on floor
-                Vector2 feetPos = new Vector2(rb.position.x, rb.position.y - sr.bounds.extents.y);
-                onFloor = Physics2D.OverlapCircle(feetPos,0.1f, floorMask);
-                if (onFloor)
-                {
-                    beginJump = false;
-                    animator.SetBool("isJumping", false);
-                }
+                aState = AIR_STATE.FALLING;
             }
+
+            recordedJumpHeight = rb.position.y - beginJumpY;
         }
+
+        if(aState == AIR_STATE.FALLING)
+        {
+            Vector2 footPos = new Vector2(rb.position.x, rb.position.y - sr.bounds.extents.y);
+            bool isOnFloor = Physics2D.OverlapCircle(footPos, 0.1f, floorMask);
+            if (isOnFloor)
+                aState = AIR_STATE.FLOOR;
+        }
+
+        //animation related stuff
+        sr.flipX = (direction < 0) ? true : (direction > 0) ? false : sr.flipX;
+        animator.SetBool("isRunning", moveAccel.x != 0.0f);
+        animator.SetBool("isJumping", aState != AIR_STATE.FLOOR);
 
         //debug
         rbVelocity = rb.velocity;
