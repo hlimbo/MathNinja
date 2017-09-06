@@ -323,7 +323,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 33432358}
-  - component: {fileID: 33432359}
   - component: {fileID: 33432360}
   m_Layer: 0
   m_Name: PlatformGenerator
@@ -345,25 +344,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &33432359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 33432357}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7f74e60d0189774ebbbd93724ac5747, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 1305809304502302, guid: 52c7046fcfab18043b8683dbb972639d,
-    type: 2}
-  spawnCount: 5
-  xSpread: 0.65
-  ySpread: 0.75
-  moveSpeed: 250
-  direction: -1
-  platforms: []
 --- !u!114 &33432360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +359,7 @@ MonoBehaviour:
     type: 2}
   spawnCount: 5
   xSpread: 0.65
-  ySpread: 0.5
+  ySpread: 0.75
   moveSpeed: 250
   direction: -1
   platforms: []
@@ -1939,7 +1919,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1751782949}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 3.2789092, z: 0}
+  m_LocalPosition: {x: -0.39, y: 3.2789092, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2094184013}

@@ -51,8 +51,8 @@ public class PlatformGenerator : MonoBehaviour {
         float platformHalfWidth = platformCollider.size.x / 2;
 
         //this is in world coordinates
-        float topCamEdge = mainCam.transform.position.y + (mainCam.orthographicSize * ySpread - halfPlatformHeight);
-        float botCamEdge = mainCam.transform.position.y - (mainCam.orthographicSize * ySpread + halfPlatformHeight);
+        float topCamEdge = (mainCam.transform.position.y - mainCam.orthographicSize) + (mainCam.orthographicSize * 2 * ySpread);
+        float botCamEdge = (mainCam.transform.position.y - mainCam.orthographicSize) + halfPlatformHeight;
 
         //the top edge of the camera's y location is relative to this game object's y position
         localTopCamEdge = topCamEdge - transform.position.y;
@@ -90,10 +90,12 @@ public class PlatformGenerator : MonoBehaviour {
     }
 
     void Update () {
-
+        
         //debugging
         //modCamHalfHeight = mainCam.orthographicSize * ySpread;
         //modCamHeight = modCamHalfHeight * 2;
+        //Vector3 screenCoords = mainCam.WorldToScreenPoint(new Vector3((mainCam.orthographicSize * mainCam.aspect * 2) / 2, mainCam.orthographicSize * 2, mainCam.nearClipPlane));
+        //Debug.Log(screenCoords);
 
         //move each platform
         Vector2 moveVelocity = new Vector2(moveSpeed * direction * Time.deltaTime, 0.0f);

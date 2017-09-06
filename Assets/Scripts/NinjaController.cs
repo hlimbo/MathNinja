@@ -17,7 +17,7 @@ public class NinjaController : MonoBehaviour {
     private Animator animator;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-    private Collider2D playerCollider;
+    private CapsuleCollider2D playerCollider;
 
     //running variables
     [SerializeField]
@@ -60,7 +60,7 @@ public class NinjaController : MonoBehaviour {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        playerCollider = GetComponent<Collider2D>();
+        playerCollider = GetComponent<CapsuleCollider2D>();
         IsDead = isDead = false;
     }
 
