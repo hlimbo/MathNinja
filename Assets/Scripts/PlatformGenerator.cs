@@ -49,6 +49,9 @@ public class PlatformGenerator : MonoBehaviour {
 
         float platformHalfWidth = platformCollider.size.x / 2;
 
+        //just set this game object's position = the main camera's position to avoid local positioning confusion
+        transform.position = new Vector2(mainCam.transform.position.x, mainCam.transform.position.y);
+
         //this is in world coordinates
         float topCamEdge = (mainCam.transform.position.y - mainCam.orthographicSize) + (mainCam.orthographicSize * 2 * ySpread);
         float botCamEdge = (mainCam.transform.position.y - mainCam.orthographicSize) + halfPlatformHeight;

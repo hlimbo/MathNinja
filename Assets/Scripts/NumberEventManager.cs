@@ -133,13 +133,13 @@ public class NumberEventManager : MonoBehaviour
             {
                 gameTexts[1].text = user_answer.ToString();
                 gameTexts[1].color = Color.green;
-                Debug.Log("My AnswerC: " + user_answer.ToString());
-                Debug.Log("The AnswerC: " + product.ToString());
+               // Debug.Log("My AnswerC: " + user_answer.ToString());
+               // Debug.Log("The AnswerC: " + product.ToString());
             }
             else
             {
-                Debug.Log("My Answer: " + user_answer.ToString());
-                Debug.Log("The Answer: " + product.ToString());
+                //Debug.Log("My Answer: " + user_answer.ToString());
+               // Debug.Log("The Answer: " + product.ToString());
                 gameTexts[1].text = product.ToString();
                 gameTexts[1].color = Color.red;
             }
