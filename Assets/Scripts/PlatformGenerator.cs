@@ -17,8 +17,7 @@ public class PlatformGenerator : MonoBehaviour {
     public float moveSpeed;
     public int direction;
 
-    [SerializeField]
-    private List<GameObject> platforms;
+    public List<GameObject> platforms { get; private set; }
     private Camera mainCam;
     private NinjaController ninja;
     private float halfPlatformHeight;

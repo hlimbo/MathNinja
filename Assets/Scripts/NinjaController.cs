@@ -77,7 +77,7 @@ public class NinjaController : MonoBehaviour {
         if (enableFlyMode)
         {
             rb.bodyType = RigidbodyType2D.Static;
-            playerCollider.isTrigger = true;
+            playerCollider.enabled = false;
             transform.position = new Vector2(mainCam.transform.position.x, mainCam.transform.position.y - mainCam.orthographicSize / 2);
             return;
         }

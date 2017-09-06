@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoundaryScript : MonoBehaviour {
 
-    public GameObject[] walls;
+    [SerializeField]
+    private GameObject[] walls;
 	void Start ()
     {
         walls = new GameObject[2];
@@ -27,9 +28,4 @@ public class BoundaryScript : MonoBehaviour {
         walls[1].transform.SetParent(transform);
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
