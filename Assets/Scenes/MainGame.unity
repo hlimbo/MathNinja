@@ -123,7 +123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &11516561
 Transform:
   m_ObjectHideFlags: 0
@@ -358,8 +358,8 @@ MonoBehaviour:
   platformPrefab: {fileID: 1305809304502302, guid: 52c7046fcfab18043b8683dbb972639d,
     type: 2}
   spawnCount: 5
-  xSpread: 0.65
-  ySpread: 0.75
+  xSpread: 0.75
+  ySpread: 0.55
   moveSpeed: 250
   direction: -1
   platforms: []
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b34af0cc20c4349b298e527d7a7ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateDuration: Infinity
+  updateDuration: 5
   updateFrequency: 1
   displayDelay: 2
   displayElapsedTime: 0
@@ -528,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &317333405
 Transform:
   m_ObjectHideFlags: 0
@@ -1975,6 +1975,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1855441621}
+  - component: {fileID: 1855441620}
   m_Layer: 0
   m_Name: walls
   m_TagString: Untagged
@@ -1982,6 +1983,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1855441620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1855441619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc5f894d96b2680418ff0fa7c4e0201f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walls: []
 --- !u!4 &1855441621
 Transform:
   m_ObjectHideFlags: 0
