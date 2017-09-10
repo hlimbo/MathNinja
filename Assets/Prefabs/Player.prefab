@@ -109,7 +109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAccel: {x: 0, y: 0}
   moveSpeed: 150
-  maxSpeed: {x: 7, y: 0}
+  maxSpeed: {x: 5, y: 0}
+  direction: 0
   jumpHeight: 5
   timeToJumpApex: 0.5
   gravity: 0

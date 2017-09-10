@@ -24,6 +24,8 @@ public class NinjaController : MonoBehaviour {
     private Vector2 moveAccel;
     public float moveSpeed;
     public Vector2 maxSpeed;
+    [SerializeField]
+    private int direction = 0;
 
 
     //jump variables
@@ -89,8 +91,7 @@ public class NinjaController : MonoBehaviour {
         //temp ~ 
         Physics2D.gravity = new Vector2(Physics2D.gravity.x, -gravity);
         //solve for jumpSpeed
-        //jumpSpeed = gravity * timeToJumpApex;
-        jumpSpeed = Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+        jumpSpeed = gravity * timeToJumpApex;
 
         //debugging
         if (enableFlyMode)
@@ -118,13 +119,25 @@ public class NinjaController : MonoBehaviour {
             return;
         }
 
+        //todo remove horizontal movement control (only allow the player to move to the right)
         //this is accelerating the player every frame
-        int direction = (int)Input.GetAxisRaw("Horizontal");
-        moveAccel = new Vector2(moveSpeed * Time.deltaTime * direction, 0.0f);
-        rb.AddForce(moveAccel, ForceMode2D.Impulse);
-        //clamp speed
-        if (Mathf.Abs(rb.velocity.x) > maxSpeed.x)
-            rb.velocity = new Vector2(maxSpeed.x * direction, rb.velocity.y);
+        direction = (int)Input.GetAxisRaw("Horizontal");
+        if (direction < 0)
+        {
+            moveAccel = new Vector2(moveSpeed * 2 * Time.deltaTime * direction, 0.0f);
+            rb.AddForce(moveAccel, ForceMode2D.Impulse);
+            //clamp speed
+            if (Mathf.Abs(rb.velocity.x) > maxSpeed.x * 2)
+                rb.velocity = new Vector2(maxSpeed.x * direction * 2, rb.velocity.y);
+        }
+        else
+        {
+            moveAccel = new Vector2(moveSpeed * Time.deltaTime * direction, 0.0f);
+            rb.AddForce(moveAccel, ForceMode2D.Impulse);
+            //clamp speed
+            if (Mathf.Abs(rb.velocity.x) > maxSpeed.x)
+                rb.velocity = new Vector2(maxSpeed.x * direction, rb.velocity.y);
+        }
 
         //jumping
         if (Input.GetButtonDown("Jump"))
@@ -248,4 +261,12 @@ public class NinjaController : MonoBehaviour {
             yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
         }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.tag.Equals("Floor"))
+    //    {
+    //        direction = 1;
+    //    }
+    //}
 }

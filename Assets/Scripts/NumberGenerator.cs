@@ -51,7 +51,7 @@ public class NumberGenerator : MonoBehaviour {
 
             float halfPlatformHeight = pGenerator.platforms[i].GetComponent<BoxCollider2D>().size.y / 2;
             float halfPlatformWidth = pGenerator.platforms[i].GetComponent<BoxCollider2D>().size.x / 2;
-            possibleAnswers[i].transform.localPosition = new Vector2(halfPlatformWidth * 0.5f, possibleAnswers[i].GetComponent<BoxCollider2D>().size.y / 2 + halfPlatformHeight);
+            possibleAnswers[i].transform.localPosition = new Vector2(halfPlatformWidth + possibleAnswers[i].GetComponent<BoxCollider2D>().size.x, possibleAnswers[i].GetComponent<BoxCollider2D>().size.y / 2 + halfPlatformHeight);
         }
 
         StartCoroutine(GenerateAnswers());

@@ -60,13 +60,13 @@ public class PlatformGenerator : MonoBehaviour {
         localTopCamEdge = topCamEdge - transform.position.y;
         localBotCamEdge = botCamEdge - transform.position.y;
 
-        //assign the first platform's height to be between the camera's bottom edge and top edge
-        //where the y positions of the camera's top and bottom edges are relative to this game object's y position
-        //since all platform prefab objects will be parented to this game object
+
+        //always assign the first platform to be right below the player at all times
+
         float randomHeight = Random.Range(localBotCamEdge, localTopCamEdge);
 
         GameObject platform = Instantiate<GameObject>(platformPrefab, transform, false);
-        platform.transform.localPosition = new Vector3(platformHalfWidth, randomHeight, 0.0f);
+        platform.transform.localPosition = new Vector3(platformHalfWidth, ninja.transform.position.x - this.transform.position.x - platform.GetComponent<BoxCollider2D>().size.x / 2,ninja.transform.position.y - this.transform.position.y - ninja.GetComponent<Collider2D>().bounds.size.y / 2  );
         platforms.Add(platform);
 
         //generate all other platform heights based on the previous platform's height and the player's jump height
