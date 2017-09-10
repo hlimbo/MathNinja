@@ -25,8 +25,12 @@ public class NinjaController : MonoBehaviour {
     public float moveSpeed;
     public Vector2 maxSpeed;
 
-    //jumping variables ~ todo: calculate jump velocity based on jump height, worry about how fast it accelerates to target jump velocity later on
+
+    //jump variables
     public float jumpHeight;
+    public float timeToJumpApex;
+    [SerializeField]
+    private float gravity;
     private float beginJumpY;
     private float beginJumpTime;
     [SerializeField]
@@ -71,6 +75,21 @@ public class NinjaController : MonoBehaviour {
         mainCam = Camera.main;
 
         //calculate jump speed based on jump height and the gravity using a kinematic equation
+        //jumpSpeed = Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+
+        //sqrt((2 * d) / a) = t
+        //jump time = sqrt(2 * jumpHeight / gravity);
+        //jump speed = jump height / jump time
+
+        //know jumpHeight and timetoJumpApex
+        //need to solve for gravity and jumpSpeed
+        //d = vi * t + (1/2) * a * t^2
+        //solve for gravity
+        gravity = (2 * jumpHeight) / (timeToJumpApex * timeToJumpApex);
+        //temp ~ 
+        Physics2D.gravity = new Vector2(Physics2D.gravity.x, -gravity);
+        //solve for jumpSpeed
+        //jumpSpeed = gravity * timeToJumpApex;
         jumpSpeed = Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
 
         //debugging
@@ -123,22 +142,35 @@ public class NinjaController : MonoBehaviour {
         {
             timeElapsed = Time.time - beginJumpTime;
             recordedJumpHeight = rb.position.y - beginJumpY;
-            if (recordedJumpHeight < jumpHeight)
+
+            //floaty jump but the jump heights recorded are very accurate
+            //if (recordedJumpHeight < jumpHeight)
+            //{
+            //    if (rb.velocity.y < jumpSpeed)
+            //    {
+            //        //increase the rate of the jump velocity by some jumpFactor percentage every frame
+            //        float jumpFactor = 0.25f;
+            //        Vector2 jumpAccel = new Vector2(0.0f, jumpSpeed * jumpFactor + rb.velocity.y);
+            //        rb.AddForce(jumpAccel, ForceMode2D.Impulse);
+            //    }
+            //    else //otherwise,if rb.velocity.y exceeds or matches the jumpSpeed
+            //    {
+            //        //slowly decelerate the y velocity down to zero which will smoothly transition the player between jumping and falling
+            //        float jumpVelPercent = Mathf.InverseLerp(0.0f, jumpHeight * 2, recordedJumpHeight);
+            //        float newJumpVelocity = Mathf.Lerp(0.0f, jumpSpeed * 2, 1.0f - jumpVelPercent);
+            //        rb.velocity = new Vector2(rb.velocity.x, newJumpVelocity);
+            //    }
+            //}
+
+            //jumps are snappy but gravity affects friction along x-axis
+            //but recordedJumpHeight is always less than specified jumpHeight
+            if(timeElapsed < timeToJumpApex)
             {
-                if (rb.velocity.y < jumpSpeed)
-                {
-                    //increase the rate of the jump velocity by some jumpFactor percentage every frame
-                    float jumpFactor = 0.25f;
-                    Vector2 jumpAccel = new Vector2(0.0f, jumpSpeed * jumpFactor + rb.velocity.y);
-                    rb.AddForce(jumpAccel, ForceMode2D.Impulse);
-                }
-                else //otherwise,if rb.velocity.y exceeds or matches the jumpSpeed
-                {
-                    //slowly decelerate the y velocity down to zero which will smoothly transition the player between jumping and falling
-                    float jumpVelPercent = Mathf.InverseLerp(0.0f, jumpHeight * 2, recordedJumpHeight);
-                    float newJumpVelocity = Mathf.Lerp(0.0f, jumpSpeed * 2, 1.0f - jumpVelPercent);
-                    rb.velocity = new Vector2(rb.velocity.x, newJumpVelocity);
-                }
+                //jumpModifier is used to make sure ninja reaches target jumpHeight
+                float jumpModifier = 1.5f;
+                float jumpVelPercent = Mathf.InverseLerp(0.0f, jumpHeight * jumpModifier, recordedJumpHeight);
+                float newJumpVelocity = Mathf.Lerp(0.0f, jumpSpeed, 1.0f - jumpVelPercent);
+                rb.velocity = new Vector2(rb.velocity.x, newJumpVelocity);
             }
             else
             {
