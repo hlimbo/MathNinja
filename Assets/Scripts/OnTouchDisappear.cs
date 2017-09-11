@@ -17,14 +17,14 @@ public class OnTouchDisappear : MonoBehaviour {
 
     private void Update()
     {
-        numberCollider.enabled = (NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration) ? true : false;
+        numberCollider.enabled = (WorldEventSystem.ElapsedTime < WorldEventSystem.UpdateDuration) ? true : false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.Equals("Player"))
         {
-            if (NumberEventManager.elapsedTime < NumberEventManager.UpdateDuration && NumberEventManager.ProblemState == NumberEventManager.Problem_State.NO_ANSWER)
+            if (WorldEventSystem.ElapsedTime < WorldEventSystem.UpdateDuration && NumberEventManager.ProblemState == NumberEventManager.Problem_State.NO_ANSWER)
             {
                 NumberEventManager.ProblemState = NumberEventManager.Problem_State.ANSWER_PENDING;
                 NumberEventManager.user_answer = numberText.value;

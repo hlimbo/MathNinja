@@ -101,9 +101,25 @@ public class NinjaController : MonoBehaviour {
             transform.position = new Vector2(mainCam.transform.position.x, mainCam.transform.position.y - mainCam.orthographicSize / 2);
             return;
         }
-        
-        StartCoroutine(CheckIfDead());
-	}
+
+        // StartCoroutine(CheckIfDead());
+        WorldEventSystem.OnTimerInterrupted += IsPlayerOutOfBounds;
+        WorldEventSystem.OnPlayerActionEvaluated += EvaluatePlayerDeath;
+    }
+
+    //events will be bound here
+    //private void OnEnable()
+    //{
+    //    WorldEventSystem.OnTimerInterrupted += IsPlayerOutOfBounds;
+    //    WorldEventSystem.OnPlayerActionEvaluated += EvaluatePlayerDeath;
+    //}
+
+    //events will be unbound here
+    private void OnDestroy()
+    {
+        WorldEventSystem.OnTimerInterrupted -= IsPlayerOutOfBounds;
+        WorldEventSystem.OnPlayerActionEvaluated -= EvaluatePlayerDeath;
+    }
 
     void Update()
     {
@@ -210,6 +226,42 @@ public class NinjaController : MonoBehaviour {
         rbVelocity = rb.velocity;
     }
 
+    //function bound to event OnTimerInterrupted
+    private bool IsPlayerOutOfBounds()
+    {
+        Debug.Assert(mainCam.orthographic);
+        Transform camTransform = mainCam.GetComponent<Transform>();
+        Debug.Assert(camTransform != null);
+        bool result = transform.position.y < camTransform.position.y - mainCam.orthographicSize;
+        //player death static variable gets determined here
+        IsDead = isDead = result;
+        return result;
+    }
+
+    //function bound to event OnPostTimerElapsed
+    //note: unsure if this code will look better after refactor
+    private void EvaluatePlayerDeath()
+    {
+        //do a busy wait here... since I do not know if NinjaController's coroutine or NumberEventManager's coroutine will be called first.
+        //to ensure that the problem gets evaluated by NumberEventManager's coroutine check
+        //note: unsure if a busy wait or script execution order needs to be modified in order to one function run first
+        //while (NumberEventManager.ProblemState == NumberEventManager.Problem_State.ANSWER_PENDING)
+        //{
+        //    yield return new WaitForEndOfFrame();
+        //}
+
+        //check if player lives or dies depending on what answer was picked
+        switch (NumberEventManager.ProblemState)
+        {
+            case NumberEventManager.Problem_State.CORRECT_ANSWER:
+                IsDead = isDead = false;
+                break;
+            case NumberEventManager.Problem_State.WRONG_ANSWER:
+                IsDead = isDead = true;
+                break;
+        }
+    }
+
     //need to sync death animation with number event manager coroutine loop
     private IEnumerator CheckIfDead()
     {
@@ -227,10 +279,7 @@ public class NinjaController : MonoBehaviour {
                 //checks if player dies by falling off camera bounds
                 else if (mainCam.orthographic)
                 {
-                    Transform cameraTransform = mainCam.GetComponent<Transform>();
-                    Debug.Assert(cameraTransform != null);
-                    if (transform.position.y < cameraTransform.position.y - mainCam.orthographicSize) //||
-                        //transform.position.y > cameraTransform.position.y + mainCam.orthographicSize)
+                    if (IsPlayerOutOfBounds())
                     {
                         IsDead = isDead = true;
                         break;
@@ -240,23 +289,13 @@ public class NinjaController : MonoBehaviour {
                 yield return new WaitForSeconds(NumberEventManager.UpdateFrequency);
             }
 
-            //do a busy wait here... since I do not know if NinjaController's coroutine or NumberEventManager's coroutine will be called first.
-            //to ensure that the problem gets evaluated by NumberEventManager's coroutine check
+            //unsure if this busy wait will still be required to ensure order remains stable
             while (NumberEventManager.ProblemState == NumberEventManager.Problem_State.ANSWER_PENDING)
             {
                 yield return new WaitForEndOfFrame();
             }
 
-            //check if player lives or dies depending on what answer was picked
-            switch (NumberEventManager.ProblemState)
-            {
-                case NumberEventManager.Problem_State.CORRECT_ANSWER:
-                    IsDead = isDead = false;
-                    break;
-                case NumberEventManager.Problem_State.WRONG_ANSWER:
-                    IsDead = isDead = true;
-                    break;
-            }
+            EvaluatePlayerDeath();
 
             yield return new WaitForSeconds(NumberEventManager.DisplayDelay);
         }

@@ -64,43 +64,94 @@ public class NumberEventManager : MonoBehaviour
         DisplayDelay = displayDelay;
         elapsedTime = 0.0f;
         ProblemState = Problem_State.NO_ANSWER;
-    }
 
-    private void Start()
-    {
         multiplicationQuestion = GameObject.Find("MultiplicationQuestion");
         Debug.Assert(multiplicationQuestion != null);
 
         gameTexts = multiplicationQuestion.GetComponentsInChildren<TextMeshProUGUI>();
         Debug.Assert(gameTexts.Length != 0);
-
-        StartCoroutine(GenerateQuestion());
     }
 
-    //used primarily for when a user decides to change timer values while in unity playmode
-    //to reflect the changes that happen for all scripts that require access to the timing variables
-    //private void Update()
+    private void Start()
+    {
+        //StartCoroutine(GenerateQuestion());
+        WorldEventSystem.OnPreTimerElapsed += InitializeNewQuestion;
+        WorldEventSystem.OnTimerInterrupted += IsProblemPending;
+        WorldEventSystem.OnPostTimerElapsed += EvaluateAnswerIfProvided;
+    }
+
+    //private void OnEnable()
     //{
-    //    //temporary ~ can remove after the final build
-    //    UpdateDuration = updateDuration;
-    //    UpdateFrequency = updateFrequency;
-    //    DisplayDelay = displayDelay;
+    //    WorldEventSystem.OnPreTimerElapsed += InitializeNewQuestion;
+    //    WorldEventSystem.OnTimerInterrupted += IsProblemPending;
+    //    WorldEventSystem.OnPostTimerElapsed += EvaluateAnswerIfProvided;
     //}
+
+    private void OnDestroy()
+    {
+        WorldEventSystem.OnPreTimerElapsed -= InitializeNewQuestion;
+        WorldEventSystem.OnTimerInterrupted -= IsProblemPending;
+        WorldEventSystem.OnPostTimerElapsed -= EvaluateAnswerIfProvided;
+    }
+
+
+    //bound to event PreTimerElapsed
+    private void InitializeNewQuestion()
+    {
+        int[] values = RandomNumbers(0, 12);
+        product = Product(values);
+        questionText = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
+        answerText = "?";
+        gameTexts[0].text = questionText;
+        gameTexts[1].text = answerText;
+        gameTexts[1].color = Color.white;
+        user_answer = NO_ANSWER;
+        ProblemState = Problem_State.NO_ANSWER;
+    }
+
+    //bound to event TimerInterrupted
+    private bool IsProblemPending()
+    {
+        return ProblemState == Problem_State.ANSWER_PENDING;
+    }
+
+    //bound to event PostTimerElapsed
+    private void EvaluateAnswerIfProvided()
+    {
+        //check again after time is up
+        if (ProblemState == Problem_State.ANSWER_PENDING)
+        {
+            gameTexts[1].text = user_answer.ToString();
+            //evaluate if answer is right or wrong
+            ProblemState = (user_answer == product) ? Problem_State.CORRECT_ANSWER : Problem_State.WRONG_ANSWER;
+        }
+
+        if (ProblemState == Problem_State.CORRECT_ANSWER)
+        {
+            gameTexts[1].text = user_answer.ToString();
+            gameTexts[1].color = Color.green;
+            // Debug.Log("My AnswerC: " + user_answer.ToString());
+            // Debug.Log("The AnswerC: " + product.ToString());
+        }
+        else
+        {
+            //Debug.Log("My Answer: " + user_answer.ToString());
+            // Debug.Log("The Answer: " + product.ToString());
+            gameTexts[1].text = product.ToString();
+            gameTexts[1].color = Color.red;
+        }
+
+        product = NO_PRODUCT;
+    }
 
     private IEnumerator GenerateQuestion()
     {
         //stop generating new math questions if player is dead
         while (!NinjaController.IsDead)
         {
-            int[] values = RandomNumbers(0, 12);
-            product = Product(values);
-            questionText = string.Format("{0}  x  {1}  =  ", values[0], values[1]);
-            answerText = "?";
-            gameTexts[0].text = questionText;
-            gameTexts[1].text = answerText;
-            gameTexts[1].color = Color.white;
-            user_answer = NO_ANSWER;
-            ProblemState = Problem_State.NO_ANSWER;
+
+            InitializeNewQuestion();
+
 
             //need to interrupt  WaitForSeconds if player was able to grab an answer in less than
             //updateDuration's time frame.
@@ -112,7 +163,7 @@ public class NumberEventManager : MonoBehaviour
             while (elapsedTime < updateDuration)
             {
                 //I have to possibly check twice for the correct answer
-                if (ProblemState == Problem_State.ANSWER_PENDING)
+                if (IsProblemPending())
                 {
                     break;
                 }
@@ -121,30 +172,8 @@ public class NumberEventManager : MonoBehaviour
                 displayElapsedTime = elapsedTime = Time.time - startTime;
             }
 
-            //check again after time is up
-            if (ProblemState == Problem_State.ANSWER_PENDING)
-            {
-                gameTexts[1].text = user_answer.ToString();
-                //evaluate if answer is right or wrong
-                ProblemState = (user_answer == product) ? Problem_State.CORRECT_ANSWER : Problem_State.WRONG_ANSWER;
-            }
+            EvaluateAnswerIfProvided();
 
-            if (ProblemState == Problem_State.CORRECT_ANSWER)
-            {
-                gameTexts[1].text = user_answer.ToString();
-                gameTexts[1].color = Color.green;
-               // Debug.Log("My AnswerC: " + user_answer.ToString());
-               // Debug.Log("The AnswerC: " + product.ToString());
-            }
-            else
-            {
-                //Debug.Log("My Answer: " + user_answer.ToString());
-               // Debug.Log("The Answer: " + product.ToString());
-                gameTexts[1].text = product.ToString();
-                gameTexts[1].color = Color.red;
-            }
-
-            product = NO_PRODUCT;
             yield return new WaitForSeconds(displayDelay);
         }
 
