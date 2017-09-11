@@ -85,7 +85,7 @@ public class WorldEventSystem : MonoBehaviour {
     private IEnumerator TimerEventLoop()
     {
         //ok we have to add a busy wait here to ensure all delegates are loaded up with functions to execute
-        //probably should set the script execution order instead
+        //really hacky.. there has to be a better way to organize this code.
         while (OnPreTimerElapsed == null)
         {
             yield return new WaitForEndOfFrame();
