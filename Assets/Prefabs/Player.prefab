@@ -76,8 +76,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.7333333, y: 2.1333334}
+  m_Offset: {x: 0.19, y: 0.05}
+  m_Size: {x: 1.28, y: 2.1333334}
   m_Direction: 0
 --- !u!95 &95317798442309590
 Animator:
@@ -121,6 +121,9 @@ MonoBehaviour:
   floorMask:
     serializedVersion: 2
     m_Bits: 256
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1024
   rbVelocity: {x: 0, y: 0}
   isDead: 0
   enableFlyMode: 0

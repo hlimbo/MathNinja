@@ -26,6 +26,19 @@ public class ScrollingBackground : MonoBehaviour
         camHalfHeight = mainCam.orthographicSize;
         leftCamEdge = mainCam.transform.position.x - camHalfWidth;
         rightCamEdge = mainCam.transform.position.x + camHalfWidth;
+
+
+        //To modify the sprite's size... we must set it to rect mode under its sprite import settings and under sprite renderer component, set draw mode to sliced
+        backgrounds[0].GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Sliced;
+        backgrounds[1].GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Sliced;
+
+        backgrounds[0].GetComponent<SpriteRenderer>().size = new Vector2(camHalfWidth * 2, camHalfHeight * 2);
+        backgrounds[1].GetComponent<SpriteRenderer>().size = new Vector2(camHalfWidth * 2, camHalfHeight * 2);
+
+        backgrounds[0].GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Simple;
+        backgrounds[1].GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Simple;
+
+        backgrounds[1].transform.position = new Vector2(backgrounds[0].transform.position.x + backgrounds[1].GetComponent<SpriteRenderer>().size.x,backgrounds[1].transform.position.y);
     }
 	
 	void Update ()
@@ -33,8 +46,9 @@ public class ScrollingBackground : MonoBehaviour
         scrollVelocity = new Vector2(scrollDirection * scrollSpeed, 0.0f) * Time.deltaTime;
         foreach (GameObject background in backgrounds)
         {
+            //Rigidbody2D bRb = background.GetComponent<Rigidbody2D>();
+            //bRb.MovePosition(bRb.position + scrollVelocity);
             background.transform.Translate((Vector3)scrollVelocity);
-            SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
         }
 
         //check if 0th background is in front of 1th background.

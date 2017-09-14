@@ -16,7 +16,6 @@ public class BoundaryScript : MonoBehaviour {
             walls[i].AddComponent<BoxCollider2D>();
             BoxCollider2D wallBox = walls[i].GetComponent<BoxCollider2D>();
             wallBox.size = new Vector2(1.0f, Camera.main.orthographicSize * 2);
-            Debug.Log("wall " + i + ": " + walls[i].layer);
             walls[i].layer = LayerMask.NameToLayer("Walls");
         }
 
