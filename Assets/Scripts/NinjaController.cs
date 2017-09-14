@@ -47,6 +47,7 @@ public class NinjaController : MonoBehaviour {
     public static float JumpHeight { get; private set; }
 
     public LayerMask floorMask;
+    public LayerMask wallMask;
 
     [SerializeField]
     private Vector2 rbVelocity;
@@ -61,6 +62,8 @@ public class NinjaController : MonoBehaviour {
 
     private Camera mainCam;
 
+    private BoundaryScript boundaryScript;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -72,6 +75,7 @@ public class NinjaController : MonoBehaviour {
 
     void Start ()
     {
+        boundaryScript = FindObjectOfType<BoundaryScript>();
         JumpHeight = jumpHeight;
         aState = AIR_STATE.FALLING;
         mainCam = Camera.main;
@@ -211,6 +215,22 @@ public class NinjaController : MonoBehaviour {
 
         if(aState == AIR_STATE.FALLING)
         {
+            //measured in unity units which can be converted to pixels found in each art asset file
+            float distToWall = 1.0f;
+            
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, new Vector2(direction, 0.0f), distToWall, wallMask);
+            if(hit.collider != null)
+            {
+                //manually apply gravity here to ensure player doesn't stick to wall
+                Debug.Log("direction: " + direction);
+                Debug.Log("I am touching: " + hit.collider.gameObject.name);
+                //have to increase the rate of gravity strength here when hitting the left wall
+                float gravityStrength = 2.2f;
+                if (direction < 0)
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * Time.deltaTime * gravityStrength);
+                else
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * Time.deltaTime);
+            }
             Vector2 footPos = new Vector2(rb.position.x, rb.position.y - sr.bounds.extents.y);
             bool isOnFloor = Physics2D.OverlapCircle(footPos, 0.1f, floorMask);
             if (isOnFloor)

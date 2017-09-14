@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BoundaryScript : MonoBehaviour {
 
-    [SerializeField]
-    private GameObject[] walls;
+    //[SerializeField]
+    public GameObject[] walls;
 	void Start ()
     {
         walls = new GameObject[2];
@@ -16,6 +16,8 @@ public class BoundaryScript : MonoBehaviour {
             walls[i].AddComponent<BoxCollider2D>();
             BoxCollider2D wallBox = walls[i].GetComponent<BoxCollider2D>();
             wallBox.size = new Vector2(1.0f, Camera.main.orthographicSize * 2);
+            Debug.Log("wall " + i + ": " + walls[i].layer);
+            walls[i].layer = LayerMask.NameToLayer("Walls");
         }
 
         float camHalfWidth = (Camera.main.aspect * 2 * Camera.main.orthographicSize) / 2;
