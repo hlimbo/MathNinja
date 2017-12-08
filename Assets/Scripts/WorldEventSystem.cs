@@ -102,7 +102,6 @@ public class WorldEventSystem : MonoBehaviour {
             //can subscribe to this event if they want their functions
             //to be called at the very beginning of the coroutine loop
             OnPreTimerElapsed();
-            //for some reason it the line doesn't get past here?
             StartTime = startTime = Time.time;
             yield return new WaitForSeconds(updateFrequency);
             ElapsedTime = elapsedTime = Time.time - startTime;
