@@ -1,138 +1,393 @@
 fileFormatVersion: 2
 guid: 2bfc7682f31eee04d9a66808716ddd06
-timeCreated: 1503524193
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ninja_0
-    21300002: ninja_1
-    21300004: ninja_2
-    21300006: ninja_3
-    21300008: ninja_4
-    21300010: ninja_5
-    21300012: ninja_6
-    21300014: ninja_7
-    21300016: ninja_8
-    21300018: ninja_9
-    21300020: ninja_10
-    21300022: ninja_11
-    21300024: ninja_12
-    21300026: ninja_13
-    21300028: ninja_14
-    21300030: ninja_15
-    21300032: ninja_16
-    21300034: ninja_17
-    21300036: ninja_18
-    21300038: ninja_19
-    21300040: ninja_20
-    21300042: ninja_21
-    21300044: ninja_22
-    21300046: ninja_23
-    21300048: ninja_24
-    21300050: ninja_25
-    21300052: ninja_26
-    21300054: ninja_27
-    21300056: ninja_28
-    21300058: ninja_29
-    21300060: ninja_30
-    21300062: ninja_31
-    21300064: ninja_32
-    21300066: ninja_33
-    21300068: ninja_34
-    21300070: ninja_35
-    21300072: ninja_36
-    21300074: ninja_37
-    21300076: ninja_38
-    21300078: ninja_39
-    21300080: ninja_40
-    21300082: ninja_41
-    21300084: ninja_42
-    21300086: ninja_43
-    21300088: ninja_44
-    21300090: ninja_45
-    21300092: ninja_46
-    21300094: ninja_47
-    21300096: ninja_48
-    21300098: ninja_49
-    21300100: ninja_50
-    21300102: ninja_51
-    21300104: ninja_52
-    21300106: ninja_53
-    21300108: ninja_54
-    21300110: ninja_55
-    21300112: ninja_56
-    21300114: ninja_57
-    21300116: ninja_58
-    21300118: ninja_59
-    21300120: ninja_60
-    21300122: ninja_61
-    21300124: ninja_62
-    21300126: ninja_63
-    21300128: ninja_64
-    21300130: ninja_65
-    21300132: ninja_66
-    21300134: ninja_67
-    21300136: ninja_68
-    21300138: ninja_69
-    21300140: ninja_70
-    21300142: ninja_71
-    21300144: ninja_72
-    21300146: ninja_73
-    21300148: ninja_74
-    21300150: ninja_75
-    21300152: ninja_76
-    21300154: ninja_77
-    21300156: ninja_78
-    21300158: ninja_79
-    21300160: ninja_80
-    21300162: ninja_81
-    21300164: ninja_82
-    21300166: ninja_83
-    21300168: ninja_84
-    21300170: ninja_85
-    21300172: ninja_86
-    21300174: ninja_87
-    21300176: ninja_88
-    21300178: ninja_89
-    21300180: ninja_90
-    21300182: ninja_91
-    21300184: ninja_92
-    21300186: ninja_93
-    21300188: ninja_94
-    21300190: ninja_95
-    21300192: ninja_96
-    21300194: ninja_97
-    21300196: ninja_98
-    21300198: ninja_99
-    21300200: ninja_100
-    21300202: ninja_101
-    21300204: ninja_102
-    21300206: ninja_103
-    21300208: ninja_104
-    21300210: ninja_105
-    21300212: ninja_106
-    21300214: ninja_107
-    21300216: ninja_108
-    21300218: ninja_109
-    21300220: ninja_110
-    21300222: ninja_111
-    21300224: ninja_112
-    21300226: ninja_113
-    21300228: ninja_114
-    21300230: ninja_115
-    21300232: ninja_116
-    21300234: ninja_117
-    21300236: ninja_118
-    21300238: ninja_119
-    21300240: ninja_120
-    21300242: ninja_121
-    21300244: ninja_122
-    21300246: ninja_123
-    21300248: ninja_124
-    21300250: ninja_125
-    21300252: ninja_126
-    21300254: ninja_127
-  serializedVersion: 4
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: ninja_0
+  - first:
+      213: 21300002
+    second: ninja_1
+  - first:
+      213: 21300004
+    second: ninja_2
+  - first:
+      213: 21300006
+    second: ninja_3
+  - first:
+      213: 21300008
+    second: ninja_4
+  - first:
+      213: 21300010
+    second: ninja_5
+  - first:
+      213: 21300012
+    second: ninja_6
+  - first:
+      213: 21300014
+    second: ninja_7
+  - first:
+      213: 21300016
+    second: ninja_8
+  - first:
+      213: 21300018
+    second: ninja_9
+  - first:
+      213: 21300020
+    second: ninja_10
+  - first:
+      213: 21300022
+    second: ninja_11
+  - first:
+      213: 21300024
+    second: ninja_12
+  - first:
+      213: 21300026
+    second: ninja_13
+  - first:
+      213: 21300028
+    second: ninja_14
+  - first:
+      213: 21300030
+    second: ninja_15
+  - first:
+      213: 21300032
+    second: ninja_16
+  - first:
+      213: 21300034
+    second: ninja_17
+  - first:
+      213: 21300036
+    second: ninja_18
+  - first:
+      213: 21300038
+    second: ninja_19
+  - first:
+      213: 21300040
+    second: ninja_20
+  - first:
+      213: 21300042
+    second: ninja_21
+  - first:
+      213: 21300044
+    second: ninja_22
+  - first:
+      213: 21300046
+    second: ninja_23
+  - first:
+      213: 21300048
+    second: ninja_24
+  - first:
+      213: 21300050
+    second: ninja_25
+  - first:
+      213: 21300052
+    second: ninja_26
+  - first:
+      213: 21300054
+    second: ninja_27
+  - first:
+      213: 21300056
+    second: ninja_28
+  - first:
+      213: 21300058
+    second: ninja_29
+  - first:
+      213: 21300060
+    second: ninja_30
+  - first:
+      213: 21300062
+    second: ninja_31
+  - first:
+      213: 21300064
+    second: ninja_32
+  - first:
+      213: 21300066
+    second: ninja_33
+  - first:
+      213: 21300068
+    second: ninja_34
+  - first:
+      213: 21300070
+    second: ninja_35
+  - first:
+      213: 21300072
+    second: ninja_36
+  - first:
+      213: 21300074
+    second: ninja_37
+  - first:
+      213: 21300076
+    second: ninja_38
+  - first:
+      213: 21300078
+    second: ninja_39
+  - first:
+      213: 21300080
+    second: ninja_40
+  - first:
+      213: 21300082
+    second: ninja_41
+  - first:
+      213: 21300084
+    second: ninja_42
+  - first:
+      213: 21300086
+    second: ninja_43
+  - first:
+      213: 21300088
+    second: ninja_44
+  - first:
+      213: 21300090
+    second: ninja_45
+  - first:
+      213: 21300092
+    second: ninja_46
+  - first:
+      213: 21300094
+    second: ninja_47
+  - first:
+      213: 21300096
+    second: ninja_48
+  - first:
+      213: 21300098
+    second: ninja_49
+  - first:
+      213: 21300100
+    second: ninja_50
+  - first:
+      213: 21300102
+    second: ninja_51
+  - first:
+      213: 21300104
+    second: ninja_52
+  - first:
+      213: 21300106
+    second: ninja_53
+  - first:
+      213: 21300108
+    second: ninja_54
+  - first:
+      213: 21300110
+    second: ninja_55
+  - first:
+      213: 21300112
+    second: ninja_56
+  - first:
+      213: 21300114
+    second: ninja_57
+  - first:
+      213: 21300116
+    second: ninja_58
+  - first:
+      213: 21300118
+    second: ninja_59
+  - first:
+      213: 21300120
+    second: ninja_60
+  - first:
+      213: 21300122
+    second: ninja_61
+  - first:
+      213: 21300124
+    second: ninja_62
+  - first:
+      213: 21300126
+    second: ninja_63
+  - first:
+      213: 21300128
+    second: ninja_64
+  - first:
+      213: 21300130
+    second: ninja_65
+  - first:
+      213: 21300132
+    second: ninja_66
+  - first:
+      213: 21300134
+    second: ninja_67
+  - first:
+      213: 21300136
+    second: ninja_68
+  - first:
+      213: 21300138
+    second: ninja_69
+  - first:
+      213: 21300140
+    second: ninja_70
+  - first:
+      213: 21300142
+    second: ninja_71
+  - first:
+      213: 21300144
+    second: ninja_72
+  - first:
+      213: 21300146
+    second: ninja_73
+  - first:
+      213: 21300148
+    second: ninja_74
+  - first:
+      213: 21300150
+    second: ninja_75
+  - first:
+      213: 21300152
+    second: ninja_76
+  - first:
+      213: 21300154
+    second: ninja_77
+  - first:
+      213: 21300156
+    second: ninja_78
+  - first:
+      213: 21300158
+    second: ninja_79
+  - first:
+      213: 21300160
+    second: ninja_80
+  - first:
+      213: 21300162
+    second: ninja_81
+  - first:
+      213: 21300164
+    second: ninja_82
+  - first:
+      213: 21300166
+    second: ninja_83
+  - first:
+      213: 21300168
+    second: ninja_84
+  - first:
+      213: 21300170
+    second: ninja_85
+  - first:
+      213: 21300172
+    second: ninja_86
+  - first:
+      213: 21300174
+    second: ninja_87
+  - first:
+      213: 21300176
+    second: ninja_88
+  - first:
+      213: 21300178
+    second: ninja_89
+  - first:
+      213: 21300180
+    second: ninja_90
+  - first:
+      213: 21300182
+    second: ninja_91
+  - first:
+      213: 21300184
+    second: ninja_92
+  - first:
+      213: 21300186
+    second: ninja_93
+  - first:
+      213: 21300188
+    second: ninja_94
+  - first:
+      213: 21300190
+    second: ninja_95
+  - first:
+      213: 21300192
+    second: ninja_96
+  - first:
+      213: 21300194
+    second: ninja_97
+  - first:
+      213: 21300196
+    second: ninja_98
+  - first:
+      213: 21300198
+    second: ninja_99
+  - first:
+      213: 21300200
+    second: ninja_100
+  - first:
+      213: 21300202
+    second: ninja_101
+  - first:
+      213: 21300204
+    second: ninja_102
+  - first:
+      213: 21300206
+    second: ninja_103
+  - first:
+      213: 21300208
+    second: ninja_104
+  - first:
+      213: 21300210
+    second: ninja_105
+  - first:
+      213: 21300212
+    second: ninja_106
+  - first:
+      213: 21300214
+    second: ninja_107
+  - first:
+      213: 21300216
+    second: ninja_108
+  - first:
+      213: 21300218
+    second: ninja_109
+  - first:
+      213: 21300220
+    second: ninja_110
+  - first:
+      213: 21300222
+    second: ninja_111
+  - first:
+      213: 21300224
+    second: ninja_112
+  - first:
+      213: 21300226
+    second: ninja_113
+  - first:
+      213: 21300228
+    second: ninja_114
+  - first:
+      213: 21300230
+    second: ninja_115
+  - first:
+      213: 21300232
+    second: ninja_116
+  - first:
+      213: 21300234
+    second: ninja_117
+  - first:
+      213: 21300236
+    second: ninja_118
+  - first:
+      213: 21300238
+    second: ninja_119
+  - first:
+      213: 21300240
+    second: ninja_120
+  - first:
+      213: 21300242
+    second: ninja_121
+  - first:
+      213: 21300244
+    second: ninja_122
+  - first:
+      213: 21300246
+    second: ninja_123
+  - first:
+      213: 21300248
+    second: ninja_124
+  - first:
+      213: 21300250
+    second: ninja_125
+  - first:
+      213: 21300252
+    second: ninja_126
+  - first:
+      213: 21300254
+    second: ninja_127
+  externalObjects: {}
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -150,6 +405,8 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -160,7 +417,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: 1
     aniso: -1
-    mipBias: -1
+    mipBias: -100
     wrapU: 0
     wrapV: 0
     wrapW: 0
@@ -172,41 +429,55 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 30
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: WebGL
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -224,6 +495,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_1
       rect:
@@ -238,6 +516,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_2
       rect:
@@ -252,6 +537,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_3
       rect:
@@ -266,6 +558,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_4
       rect:
@@ -280,6 +579,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_5
       rect:
@@ -294,6 +600,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_6
       rect:
@@ -308,6 +621,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_7
       rect:
@@ -322,6 +642,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_8
       rect:
@@ -336,6 +663,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 03305410000000000800000000000000
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_9
       rect:
@@ -350,6 +684,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_10
       rect:
@@ -364,6 +705,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_11
       rect:
@@ -378,6 +726,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_12
       rect:
@@ -392,6 +747,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_13
       rect:
@@ -406,6 +768,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a3305410000000000800000000000000
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_14
       rect:
@@ -420,6 +789,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c3305410000000000800000000000000
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_15
       rect:
@@ -434,6 +810,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e3305410000000000800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_16
       rect:
@@ -448,6 +831,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 04305410000000000800000000000000
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_17
       rect:
@@ -462,6 +852,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 24305410000000000800000000000000
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_18
       rect:
@@ -476,6 +873,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 44305410000000000800000000000000
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_19
       rect:
@@ -490,6 +894,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 64305410000000000800000000000000
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_20
       rect:
@@ -504,6 +915,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 84305410000000000800000000000000
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_21
       rect:
@@ -518,6 +936,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a4305410000000000800000000000000
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_22
       rect:
@@ -532,6 +957,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c4305410000000000800000000000000
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_23
       rect:
@@ -546,6 +978,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e4305410000000000800000000000000
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_24
       rect:
@@ -560,6 +999,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 05305410000000000800000000000000
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_25
       rect:
@@ -574,6 +1020,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 25305410000000000800000000000000
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_26
       rect:
@@ -588,6 +1041,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 45305410000000000800000000000000
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_27
       rect:
@@ -602,6 +1062,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 65305410000000000800000000000000
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_28
       rect:
@@ -616,6 +1083,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 85305410000000000800000000000000
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_29
       rect:
@@ -630,6 +1104,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a5305410000000000800000000000000
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_30
       rect:
@@ -644,6 +1125,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c5305410000000000800000000000000
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_31
       rect:
@@ -658,6 +1146,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e5305410000000000800000000000000
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_32
       rect:
@@ -672,6 +1167,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 06305410000000000800000000000000
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_33
       rect:
@@ -686,6 +1188,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 26305410000000000800000000000000
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_34
       rect:
@@ -700,6 +1209,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 46305410000000000800000000000000
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_35
       rect:
@@ -714,6 +1230,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 66305410000000000800000000000000
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_36
       rect:
@@ -728,6 +1251,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 86305410000000000800000000000000
+      internalID: 21300072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_37
       rect:
@@ -742,6 +1272,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a6305410000000000800000000000000
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_38
       rect:
@@ -756,6 +1293,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c6305410000000000800000000000000
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_39
       rect:
@@ -770,6 +1314,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e6305410000000000800000000000000
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_40
       rect:
@@ -784,6 +1335,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 07305410000000000800000000000000
+      internalID: 21300080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_41
       rect:
@@ -798,6 +1356,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 27305410000000000800000000000000
+      internalID: 21300082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_42
       rect:
@@ -812,6 +1377,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 47305410000000000800000000000000
+      internalID: 21300084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_43
       rect:
@@ -826,6 +1398,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 67305410000000000800000000000000
+      internalID: 21300086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_44
       rect:
@@ -840,6 +1419,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 87305410000000000800000000000000
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_45
       rect:
@@ -854,6 +1440,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a7305410000000000800000000000000
+      internalID: 21300090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_46
       rect:
@@ -868,6 +1461,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c7305410000000000800000000000000
+      internalID: 21300092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_47
       rect:
@@ -882,6 +1482,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e7305410000000000800000000000000
+      internalID: 21300094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_48
       rect:
@@ -896,6 +1503,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 08305410000000000800000000000000
+      internalID: 21300096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_49
       rect:
@@ -910,6 +1524,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 28305410000000000800000000000000
+      internalID: 21300098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_50
       rect:
@@ -924,6 +1545,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 48305410000000000800000000000000
+      internalID: 21300100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_51
       rect:
@@ -938,6 +1566,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 68305410000000000800000000000000
+      internalID: 21300102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_52
       rect:
@@ -952,6 +1587,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 88305410000000000800000000000000
+      internalID: 21300104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_53
       rect:
@@ -966,6 +1608,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a8305410000000000800000000000000
+      internalID: 21300106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_54
       rect:
@@ -980,6 +1629,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c8305410000000000800000000000000
+      internalID: 21300108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_55
       rect:
@@ -994,6 +1650,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e8305410000000000800000000000000
+      internalID: 21300110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_56
       rect:
@@ -1008,6 +1671,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 09305410000000000800000000000000
+      internalID: 21300112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_57
       rect:
@@ -1022,6 +1692,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 29305410000000000800000000000000
+      internalID: 21300114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_58
       rect:
@@ -1036,6 +1713,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 49305410000000000800000000000000
+      internalID: 21300116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_59
       rect:
@@ -1050,6 +1734,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 69305410000000000800000000000000
+      internalID: 21300118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_60
       rect:
@@ -1064,6 +1755,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 89305410000000000800000000000000
+      internalID: 21300120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_61
       rect:
@@ -1078,6 +1776,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a9305410000000000800000000000000
+      internalID: 21300122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_62
       rect:
@@ -1092,6 +1797,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c9305410000000000800000000000000
+      internalID: 21300124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_63
       rect:
@@ -1106,6 +1818,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e9305410000000000800000000000000
+      internalID: 21300126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_64
       rect:
@@ -1120,6 +1839,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0a305410000000000800000000000000
+      internalID: 21300128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_65
       rect:
@@ -1134,6 +1860,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2a305410000000000800000000000000
+      internalID: 21300130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_66
       rect:
@@ -1148,6 +1881,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4a305410000000000800000000000000
+      internalID: 21300132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_67
       rect:
@@ -1162,6 +1902,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6a305410000000000800000000000000
+      internalID: 21300134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_68
       rect:
@@ -1176,6 +1923,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8a305410000000000800000000000000
+      internalID: 21300136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_69
       rect:
@@ -1190,6 +1944,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: aa305410000000000800000000000000
+      internalID: 21300138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_70
       rect:
@@ -1204,6 +1965,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ca305410000000000800000000000000
+      internalID: 21300140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_71
       rect:
@@ -1218,6 +1986,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ea305410000000000800000000000000
+      internalID: 21300142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_72
       rect:
@@ -1232,6 +2007,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0b305410000000000800000000000000
+      internalID: 21300144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_73
       rect:
@@ -1246,6 +2028,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2b305410000000000800000000000000
+      internalID: 21300146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_74
       rect:
@@ -1260,6 +2049,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4b305410000000000800000000000000
+      internalID: 21300148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_75
       rect:
@@ -1274,6 +2070,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6b305410000000000800000000000000
+      internalID: 21300150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_76
       rect:
@@ -1288,6 +2091,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8b305410000000000800000000000000
+      internalID: 21300152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_77
       rect:
@@ -1302,6 +2112,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ab305410000000000800000000000000
+      internalID: 21300154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_78
       rect:
@@ -1316,6 +2133,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: cb305410000000000800000000000000
+      internalID: 21300156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_79
       rect:
@@ -1330,6 +2154,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: eb305410000000000800000000000000
+      internalID: 21300158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_80
       rect:
@@ -1344,6 +2175,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0c305410000000000800000000000000
+      internalID: 21300160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_81
       rect:
@@ -1358,6 +2196,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2c305410000000000800000000000000
+      internalID: 21300162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_82
       rect:
@@ -1372,6 +2217,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4c305410000000000800000000000000
+      internalID: 21300164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_83
       rect:
@@ -1386,6 +2238,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6c305410000000000800000000000000
+      internalID: 21300166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_84
       rect:
@@ -1400,6 +2259,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8c305410000000000800000000000000
+      internalID: 21300168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_85
       rect:
@@ -1414,6 +2280,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ac305410000000000800000000000000
+      internalID: 21300170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_86
       rect:
@@ -1428,6 +2301,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: cc305410000000000800000000000000
+      internalID: 21300172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_87
       rect:
@@ -1442,6 +2322,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ec305410000000000800000000000000
+      internalID: 21300174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_88
       rect:
@@ -1456,6 +2343,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0d305410000000000800000000000000
+      internalID: 21300176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_89
       rect:
@@ -1470,6 +2364,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2d305410000000000800000000000000
+      internalID: 21300178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_90
       rect:
@@ -1484,6 +2385,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4d305410000000000800000000000000
+      internalID: 21300180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_91
       rect:
@@ -1498,6 +2406,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6d305410000000000800000000000000
+      internalID: 21300182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_92
       rect:
@@ -1512,6 +2427,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8d305410000000000800000000000000
+      internalID: 21300184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_93
       rect:
@@ -1526,6 +2448,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ad305410000000000800000000000000
+      internalID: 21300186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_94
       rect:
@@ -1540,6 +2469,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: cd305410000000000800000000000000
+      internalID: 21300188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_95
       rect:
@@ -1554,6 +2490,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ed305410000000000800000000000000
+      internalID: 21300190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_96
       rect:
@@ -1568,6 +2511,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0e305410000000000800000000000000
+      internalID: 21300192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_97
       rect:
@@ -1582,6 +2532,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2e305410000000000800000000000000
+      internalID: 21300194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_98
       rect:
@@ -1596,6 +2553,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4e305410000000000800000000000000
+      internalID: 21300196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_99
       rect:
@@ -1610,6 +2574,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6e305410000000000800000000000000
+      internalID: 21300198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_100
       rect:
@@ -1624,6 +2595,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8e305410000000000800000000000000
+      internalID: 21300200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_101
       rect:
@@ -1638,6 +2616,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ae305410000000000800000000000000
+      internalID: 21300202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_102
       rect:
@@ -1652,6 +2637,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ce305410000000000800000000000000
+      internalID: 21300204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_103
       rect:
@@ -1666,6 +2658,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ee305410000000000800000000000000
+      internalID: 21300206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_104
       rect:
@@ -1680,6 +2679,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0f305410000000000800000000000000
+      internalID: 21300208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_105
       rect:
@@ -1694,6 +2700,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2f305410000000000800000000000000
+      internalID: 21300210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_106
       rect:
@@ -1708,6 +2721,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4f305410000000000800000000000000
+      internalID: 21300212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_107
       rect:
@@ -1722,6 +2742,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6f305410000000000800000000000000
+      internalID: 21300214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_108
       rect:
@@ -1736,6 +2763,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8f305410000000000800000000000000
+      internalID: 21300216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_109
       rect:
@@ -1750,6 +2784,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: af305410000000000800000000000000
+      internalID: 21300218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_110
       rect:
@@ -1764,6 +2805,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: cf305410000000000800000000000000
+      internalID: 21300220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_111
       rect:
@@ -1778,6 +2826,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ef305410000000000800000000000000
+      internalID: 21300222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_112
       rect:
@@ -1792,6 +2847,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 00405410000000000800000000000000
+      internalID: 21300224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_113
       rect:
@@ -1806,6 +2868,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 20405410000000000800000000000000
+      internalID: 21300226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_114
       rect:
@@ -1820,6 +2889,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 40405410000000000800000000000000
+      internalID: 21300228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_115
       rect:
@@ -1834,6 +2910,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 60405410000000000800000000000000
+      internalID: 21300230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_116
       rect:
@@ -1848,6 +2931,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 80405410000000000800000000000000
+      internalID: 21300232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_117
       rect:
@@ -1862,6 +2952,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a0405410000000000800000000000000
+      internalID: 21300234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_118
       rect:
@@ -1876,6 +2973,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c0405410000000000800000000000000
+      internalID: 21300236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_119
       rect:
@@ -1890,6 +2994,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e0405410000000000800000000000000
+      internalID: 21300238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_120
       rect:
@@ -1904,6 +3015,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 01405410000000000800000000000000
+      internalID: 21300240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_121
       rect:
@@ -1918,6 +3036,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 21405410000000000800000000000000
+      internalID: 21300242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_122
       rect:
@@ -1932,6 +3057,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 41405410000000000800000000000000
+      internalID: 21300244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_123
       rect:
@@ -1946,6 +3078,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 61405410000000000800000000000000
+      internalID: 21300246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_124
       rect:
@@ -1960,6 +3099,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 81405410000000000800000000000000
+      internalID: 21300248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_125
       rect:
@@ -1974,6 +3120,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a1405410000000000800000000000000
+      internalID: 21300250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_126
       rect:
@@ -1988,6 +3141,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c1405410000000000800000000000000
+      internalID: 21300252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ninja_127
       rect:
@@ -2002,9 +3162,26 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e1405410000000000800000000000000
+      internalID: 21300254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

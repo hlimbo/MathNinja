@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 //use this class as a workaround for text values not updating sometimes
@@ -24,21 +25,7 @@ public class NumberText : MonoBehaviour
 
     public Vector2 GetPreferredValues()
     {
-        return tmp.GetPreferredValues();
-    }
-
-    public Vector2 GetPreferredValues(float width,float height)
-    {
-        return tmp.GetPreferredValues(width, height);
-    }
-
-    public Vector2 GetPreferredValues(string text)
-    {
-        return tmp.GetPreferredValues(text);
-    }
-
-    public Vector2 GetPreferredValues(string text,float width,float height)
-    {
-        return tmp.GetPreferredValues(text, width, height);
+        
+        return tmp.GetPreferredValues(); //tmp.GetPixelAdjustedRect().size;
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CooldownTimer : MonoBehaviour {
 
@@ -12,7 +11,7 @@ public class CooldownTimer : MonoBehaviour {
     private float countdownTime;
 
     private Image cooldownImage;
-    private TextMeshProUGUI cooldownText;
+    private Text cooldownText;
 
     [SerializeField]
     private float updateFrequency;
@@ -27,7 +26,7 @@ public class CooldownTimer : MonoBehaviour {
     {
         cooldownImage = transform.GetChild(0).GetComponent<Image>();
         Debug.Assert(cooldownImage != null);
-        cooldownText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        cooldownText = transform.GetChild(1).GetComponent<Text>();
         Debug.Assert(cooldownText != null);
 	}
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 
 public class NumberEventManager : MonoBehaviour
@@ -39,7 +39,7 @@ public class NumberEventManager : MonoBehaviour
     public float displayDelay;
 
     private static GameObject multiplicationQuestion;
-    private static TextMeshProUGUI[] gameTexts;
+    private static Text[] gameTexts;
 
     //used for other scripts that require timing
     public static float startTime { get; private set; }
@@ -68,7 +68,7 @@ public class NumberEventManager : MonoBehaviour
         multiplicationQuestion = GameObject.Find("MultiplicationQuestion");
         Debug.Assert(multiplicationQuestion != null);
 
-        gameTexts = multiplicationQuestion.GetComponentsInChildren<TextMeshProUGUI>();
+        gameTexts = multiplicationQuestion.GetComponentsInChildren<Text>();
         Debug.Assert(gameTexts.Length != 0);
     }
 

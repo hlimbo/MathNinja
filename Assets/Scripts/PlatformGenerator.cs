@@ -66,7 +66,9 @@ public class PlatformGenerator : MonoBehaviour {
         float randomHeight = Random.Range(localBotCamEdge, localTopCamEdge);
 
         GameObject platform = Instantiate<GameObject>(platformPrefab, transform, false);
-        platform.transform.localPosition = new Vector3(platformHalfWidth, ninja.transform.position.x - this.transform.position.x - platform.GetComponent<BoxCollider2D>().size.x / 2,ninja.transform.position.y - this.transform.position.y - ninja.GetComponent<Collider2D>().bounds.size.y / 2  );
+        //platform.transform.localPosition = new Vector3(platformHalfWidth, ninja.transform.position.x - this.transform.position.x - platform.GetComponent<BoxCollider2D>().size.x / 2,
+        //    ninja.transform.position.y - this.transform.position.y - ninja.GetComponent<Collider2D>().bounds.size.y / 2  );
+        platform.transform.localPosition = new Vector3(mainCam.transform.position.x, -5f);
         platforms.Add(platform);
 
         //generate all other platform heights based on the previous platform's height and the player's jump height
